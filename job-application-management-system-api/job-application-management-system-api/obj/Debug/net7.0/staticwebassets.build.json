@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "jlD1oIkUfGFYYW+MDTVazWhC1VYpiWH1IpM1J+JvGPA=",
+  "Source": "job-application-management-system-api",
+  "BasePath": "_content/job-application-management-system-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
