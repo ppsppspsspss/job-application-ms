@@ -12,5 +12,6 @@ namespace job_application_management_system_api.Repositories.IServices
         string JobApplication(JobApplicationDTO jobApplicationDTO);
         string CreateOpening(CreateOpeningDTO createOpeningDTO);
         void UpdateStatus(int jobID);
+        string DeleteJob(int jobID);
     }
 }

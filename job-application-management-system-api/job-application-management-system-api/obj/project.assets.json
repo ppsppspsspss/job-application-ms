@@ -4144,11 +4144,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\SDD-SA\\Desktop\\Rianul Amin - SA\\ASP .NET\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
+      "projectUniqueName": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
       "projectName": "job-application-management-system-api",
-      "projectPath": "C:\\Users\\SDD-SA\\Desktop\\Rianul Amin - SA\\ASP .NET\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
+      "projectPath": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
       "packagesPath": "C:\\Users\\SDD-SA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\SDD-SA\\Desktop\\Rianul Amin - SA\\ASP .NET\\job-application-management-system-api\\job-application-management-system-api\\obj\\",
+      "outputPath": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\SDD-SA\\AppData\\Roaming\\NuGet\\NuGet.Config",

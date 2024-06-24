@@ -119,4 +119,20 @@ public class JobController : ControllerBase
         }
     }
 
+    [HttpDelete("delete-job/{jobID}")]
+    public ActionResult DeleteJob(int jobID)
+    {
+        try
+        {
+            _jobService.DeleteJob(jobID);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+
+
 }

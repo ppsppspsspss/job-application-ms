@@ -2,6 +2,7 @@
 using job_application_management_system_api.Repositories.IServices;
 using SocialMedia.API.Data;
 using job_application_management_system_api.Models.DTOs;
+using System.Globalization;
 
 namespace job_application_management_system_api.Repositories.Services
 {
@@ -211,6 +212,48 @@ namespace job_application_management_system_api.Repositories.Services
             {
                 throw new Exception("Job not found.");
             }
+        }
+
+        public string DeleteJob(int jobID)
+        {
+            var job = _db.Job.FirstOrDefault(job => job.jobID == jobID);
+
+            if (job != null)
+            {
+
+                var jobRequirements = _db.JobRequirement.Where(requirement => requirement.jobID == jobID).ToList();
+                var jobResponsibilities = _db.JobResponsibility.Where(responsibility => responsibility.jobID == jobID).ToList();
+
+                if (jobRequirements.Any())
+                {
+                    _db.JobRequirement.RemoveRange(jobRequirements);
+                }
+
+                if (jobResponsibilities.Any())
+                {
+                    _db.JobResponsibility.RemoveRange(jobResponsibilities);
+                }
+
+                _db.Job.Remove(job);
+                _db.SaveChanges();
+
+                return "Job deleted successfully.";
+
+            }
+            else
+            {
+                throw new Exception("Job not found.");
+            }
+        }
+
+        private DateTime ConvertToDateTime(string dateString)
+        {
+
+            string format = "d MMMM, yyyy";
+            DateTime dateTime = DateTime.ParseExact(dateString, format, CultureInfo.InvariantCulture);
+
+            return dateTime;
+
         }
 
     }
