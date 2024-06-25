@@ -33,6 +33,7 @@ export class JobListComponent {
         this.jobs = data;
       },
       (error) => {
+        this.jobs = [];
         console.log(error)
       }
     );
