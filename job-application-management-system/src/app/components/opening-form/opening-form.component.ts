@@ -10,6 +10,7 @@ import { JobService } from 'src/app/services/job.service';
   styleUrls: ['./opening-form.component.css'],
   providers: [MessageService, DatePipe]
 })
+
 export class OpeningFormComponent implements OnInit {
 
   constructor(
@@ -49,27 +50,35 @@ export class OpeningFormComponent implements OnInit {
 
   loadJobDetails(jobID: number): void {
     this.jobService.getJob(jobID).subscribe(
-      (data) => {
-        this.jobTitle = data.jobTitle;
-        this.designation = data.designation;
-        this.type = data.jobType;
-        this.workHourStart = this.parseTime(data.workHourStart);
-        this.workHourEnd = this.parseTime(data.workHourEnd);
-        this.salary = parseFloat(data.salary);
-        this.negotiable = data.negotiable === 'true';
-        this.description = data.description;
-        this.phone = data.phone;
-        this.email = data.email;
-        this.location = data.location;
-        this.maxApplicants = Number.parseInt(data.maxApplicants);
-        this.loadJobRequirements(data.jobID),
-        this.loadJobResponsibilities(data.jobID),
-        this.deadline = this.parseDate(data.deadline);
-        this.status = data.status === 'true';
+      (result) => {
+        if (!result.isError && result.data) {
+          const job = result.data;
+          this.jobTitle = job.jobTitle;
+          this.designation = job.designation;
+          this.type = job.jobType;
+          this.workHourStart = this.parseTime(job.workHourStart);
+          this.workHourEnd = this.parseTime(job.workHourEnd);
+          this.salary = parseFloat(job.salary);
+          this.negotiable = job.negotiable === 'true';
+          this.description = job.description;
+          this.phone = job.phone;
+          this.email = job.email;
+          this.location = job.location;
+          this.maxApplicants = Number.parseInt(job.maxApplicants);
+          this.deadline = this.parseDate(job.deadline);
+          this.status = job.status === 'true';
+  
+          this.loadJobRequirements(job.jobID);
+          this.loadJobResponsibilities(job.jobID);
+          
+        } else {
+          console.error('Failed to load job details:', result.messages);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load job details' });
+        }
       },
       (error) => {
-        console.error(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load job details' });
+        console.error('Error occurred while fetching job details:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while fetching job details' });
       }
     );
   }
@@ -132,14 +141,14 @@ export class OpeningFormComponent implements OnInit {
 
   createOpening(opening: any): void {
     this.jobService.createOpening(opening).subscribe(
-      response => {
+      (response: any) => {
         console.log(response);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New opening created successfully' });
         setTimeout(() => {
           this.router.navigate(['/home']);
         }, 2000);
       },
-      error => {
+      (error: any) => {
         console.error(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to create opening' });
       }

@@ -1,5 +1,7 @@
-﻿using job_application_management_system_api.Repositories.IServices;
+﻿using job_application_management_system_api.Models.DTOs;
+using job_application_management_system_api.Repositories.IServices;
 using job_application_management_system_api.Repositories.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,20 @@ namespace job_application_management_system_api.Controllers
 
         private readonly IJobApplicationService _jobApplicationService;
 
+        [AllowAnonymous]
+        [HttpPost("job-application")]
+        public ActionResult JobApplication([FromBody] JobApplicationDTO jobApplicationDTO)
+        {
+            try
+            {
+                _jobApplicationService.JobApplication(jobApplicationDTO);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
         public JobApplicationController(IJobApplicationService jobApplicationService)
         {
             _jobApplicationService = jobApplicationService;
@@ -25,20 +41,6 @@ namespace job_application_management_system_api.Controllers
             {
                 var jobApplications = _jobApplicationService.GetAllJobApplications(jobID);
                 return Ok(jobApplications);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        [HttpGet("has-applied/{jobID}")]
-        public ActionResult HasApplied(int jobID)
-        {
-            try
-            {
-                var status = _jobApplicationService.HasApplied(jobID);
-                return Ok(status);
             }
             catch (Exception ex)
             {

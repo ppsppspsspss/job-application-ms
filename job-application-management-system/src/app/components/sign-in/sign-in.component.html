@@ -7,21 +7,21 @@
             Invalid email or password.
         </span>
         <div class="label">Sign in with your organizational email address.</div>
-        <form #signInForm="ngForm" (ngSubmit)="handleSubmit(signInForm)">
+        <form (ngSubmit)="handleSubmit()">
             <div class="username">
-                <input type="text" name="email" [(ngModel)]="email" #emailCtrl="ngModel" required pInputText placeholder="Email" />
+                <input type="text" name="email" [(ngModel)]="email" #emailCtrl="ngModel" pInputText placeholder="Email" required />
             </div>
-            <div class="username-error" *ngIf="emailCtrl.errors?.['required'] && ( emailCtrl.touched || emailCtrl.dirty )">
+            <div class="username-error" *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)">
                 The email field is required
             </div>
             <div class="password">
-                <input type="password" name="password" [(ngModel)]="password" #passwordCtrl="ngModel" required pInputText placeholder="Password" />
+                <input type="password" name="password" [(ngModel)]="password" #passwordCtrl="ngModel" pInputText placeholder="Password" required />
             </div>
-            <div class="password-error" *ngIf="passwordCtrl.errors?.['required'] && ( passwordCtrl.touched || passwordCtrl.dirty )">
+            <div class="password-error" *ngIf="passwordCtrl.invalid && (passwordCtrl.dirty || passwordCtrl.touched)">
                 The password field is required
             </div>
             <div class="button">
-                <button pButton type="submit" [disabled]="signInForm.invalid" label="Log In"></button>
+                <button pButton type="submit" label="Log In"></button>
             </div>
         </form>
         <div class="forgot-password">
@@ -29,3 +29,4 @@
         </div>
     </div>
 </body>
+<p-toast></p-toast>

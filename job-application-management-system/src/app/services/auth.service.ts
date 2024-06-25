@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Result } from '../types/result';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,16 @@ export class AuthService {
 
   currentUser: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  constructor(private http: HttpClient, private router: Router) { this.loadCurrentUser(); }
+  constructor(private http: HttpClient, private router: Router) { 
+    this.loadCurrentUser(); 
+  }
 
   baseUrl = "http://localhost:5171/api/auth"
 
   jwtHelperService = new JwtHelperService();
 
-  signIn(user: any){
-    return this.http.post(this.baseUrl + "/sign-in", user, {
-      responseType: 'text'
-    });
+  signIn(user: any): Observable<Result<string>> {
+    return this.http.post<Result<string>>(`${this.baseUrl}/sign-in`, user);
   }
 
   isSignedIn(){
@@ -40,7 +41,6 @@ export class AuthService {
       fullname: userInfo.fullname,
       phone: userInfo.phone,
       email: userInfo.email,
-      password: userInfo.password,
       role: userInfo.role
     } : null;
     this.currentUser.next(data);
@@ -50,6 +50,4 @@ export class AuthService {
     localStorage.removeItem("access-token");
     this.router.navigateByUrl('/');
   }
-
 }
-

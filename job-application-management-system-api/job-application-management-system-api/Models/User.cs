@@ -7,11 +7,11 @@ namespace SocialMedia.API.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int userID { get; set; }
-        public string? fullname { get; set; }
-        public string? phone { get; set; }
-        public string? email { get; set; }
-        public string? password { get; set; }
-        public string? role { get; set; }
+        public int UserID { get; set; }
+        public string? Fullname { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
+        public string? Role { get; set; }
     }
 }

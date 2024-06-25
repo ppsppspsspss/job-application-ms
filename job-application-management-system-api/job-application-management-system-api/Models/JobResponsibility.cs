@@ -7,8 +7,8 @@ namespace job_application_management_system_api.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int jobResponsibilityID { get; set; }
-        public int jobID { get; set; }
-        public string? responsibility { get; set; }
+        public int JobResponsibilityID { get; set; }
+        public int JobID { get; set; }
+        public string? Responsibility { get; set; }
     }
 }

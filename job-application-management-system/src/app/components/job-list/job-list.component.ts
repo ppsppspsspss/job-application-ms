@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { JobService } from 'src/app/services/job.service';
 import { Job } from 'src/app/types/job';
+import { Result } from 'src/app/types/result';
 
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
-  styleUrls: ['./job-list.component.css']
+  styleUrls: ['./job-list.component.css'],
+  providers: [MessageService]
 })
 export class JobListComponent {
 
@@ -17,7 +20,7 @@ export class JobListComponent {
   checked: boolean = true;
   visible: boolean = false;
 
-  constructor(private jobService: JobService, private router: Router) {}
+  constructor(private jobService: JobService, private router: Router, private messageService: MessageService) {}
 
   ngOnInit() {
     this.loadJobs();
@@ -29,16 +32,23 @@ export class JobListComponent {
 
   loadJobs(): void {
     this.jobService.getAllJobs().subscribe(
-      (data: Job[]) => { 
-        this.jobs = data;
+      (result: Result<Job[]>) => {
+        if (!result.isError) {
+          this.jobs = result.data || []; 
+        } else {
+          console.error('Error loading jobs:', result.messages);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load jobs' });
+          this.jobs = []; 
+        }
       },
       (error) => {
-        this.jobs = [];
-        console.log(error)
+        console.error('Error loading jobs:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load jobs' });
+        this.jobs = []; 
       }
     );
   }
-
+  
   loadJob(jobID: number){
     this.router.navigate(['/applications/', jobID]);
   }
@@ -50,22 +60,30 @@ export class JobListComponent {
 
   loadJobRequirements(jobID: number): void {
     this.jobService.getJobRequirements(jobID).subscribe(
-      (data: any) => { 
-        this.jobRequirements = data;
+      (result: Result<any[]>) => {
+        if (!result.isError) {
+          this.jobRequirements = result.data || [];
+        } else {
+          console.error('Error loading job requirements:', result.messages);
+        }
       },
       (error) => {
-        console.error(error);
+        console.error('Error loading job requirements:', error);
       }
     );
   }
 
   loadJobResponsibilities(jobID: number): void {
     this.jobService.getJobResponsibilities(jobID).subscribe(
-      (data: any) => { 
-        this.jobResponsibilities = data;
+      (result: Result<any[]>) => {
+        if (!result.isError) {
+          this.jobResponsibilities = result.data || []; 
+        } else {
+          console.error('Error loading job responsibilities:', result.messages);
+        }
       },
       (error) => {
-        console.error(error);
+        console.error('Error loading job responsibilities:', error);
       }
     );
   }
@@ -73,17 +91,44 @@ export class JobListComponent {
   showDialog(event: Event, job: any): void {
     event.stopPropagation();
     this.jobService.getJob(job.jobID).subscribe(
-      (data: Job) => { 
-        this.loadJobInfo = data;
-        this.loadJobRequirements(job.jobID);
-        this.loadJobResponsibilities(job.jobID);
-        this.visible = true;
+      (result) => {
+        if (!result.isError && result.data) {
+          const jobData = result.data;
+          this.loadJobInfo = {
+            jobID: jobData.jobID,
+            jobTitle: jobData.jobTitle,
+            designation: jobData.designation,
+            jobType: jobData.jobType,
+            workHourStart: jobData.workHourStart,
+            workHourEnd: jobData.workHourEnd,
+            salary: jobData.salary,
+            negotiable: jobData.negotiable,
+            description: jobData.description,
+            phone: jobData.phone,
+            email: jobData.email,
+            location: jobData.location,
+            maxApplicants: jobData.maxApplicants,
+            deadline: jobData.deadline,
+            status: jobData.status
+          };
+  
+          this.loadJobRequirements(job.jobID);
+          this.loadJobResponsibilities(job.jobID);
+          this.visible = true;
+
+        } 
+        else {
+          console.error('Failed to fetch job details:', result.messages);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch job details' });
+        }
       },
       (error) => {
-        console.error(error);
+        console.error('Error occurred while fetching job details:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'An error occurred while fetching job details' });
       }
     );
   }
+  
 
   createNewOpening(){
     this.router.navigateByUrl('opening-form');

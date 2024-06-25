@@ -10,7 +10,13 @@ export class JobApplicationService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl = "http://localhost:5171/api/job-application"
+  baseUrl = "http://localhost:5171/api/job-application";
+
+  jobApplication(jobApplication: any): Observable<string> {
+    return this.http.post<string>(this.baseUrl + "/job-application", jobApplication, {
+      responseType: 'text' as 'json'
+    });
+  }
 
   getAllJobApplications(jobID: number): Observable<JobApplication>{
     return this.http.get<JobApplication>(this.baseUrl + "/get-all-job-applications/" + jobID , {

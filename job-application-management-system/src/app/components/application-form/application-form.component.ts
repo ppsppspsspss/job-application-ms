@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JobService } from 'src/app/services/job.service';
 import { MessageService } from 'primeng/api';
+import { JobApplicationService } from 'src/app/services/job-application.service';
 
 @Component({
   selector: 'app-application-form',
@@ -11,7 +12,7 @@ import { MessageService } from 'primeng/api';
 })
 export class ApplicationFormComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private jobService: JobService, private router: Router, private messageService: MessageService) { }
+  constructor(private route: ActivatedRoute, private jobService: JobService, private jobApplicationService: JobApplicationService,private router: Router, private messageService: MessageService) { }
 
   jobID: number | null = null;
   bsc: boolean = false;
@@ -87,7 +88,7 @@ export class ApplicationFormComponent implements OnInit {
         skills: this.skills
       };
   
-      this.jobService.jobApplication(jobApplication).subscribe(
+      this.jobApplicationService.jobApplication(jobApplication).subscribe(
         response => {
           console.log(response);
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Application submitted successfully' });
