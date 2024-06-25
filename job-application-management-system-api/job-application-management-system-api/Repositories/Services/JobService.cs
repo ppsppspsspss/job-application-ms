@@ -256,5 +256,66 @@ namespace job_application_management_system_api.Repositories.Services
 
         }
 
+        public string UpdateJob(int jobID, UpdateOpeningDTO updateOpeningDTO)
+        {
+            var job = _db.Job.FirstOrDefault(job => job.jobID == jobID);
+
+            if (job == null)
+            {
+                throw new Exception("Job not found.");
+            }
+
+            job.jobTitle = updateOpeningDTO.jobTitle ?? job.jobTitle;
+            job.designation = updateOpeningDTO.designation ?? job.designation;
+            job.jobType = updateOpeningDTO.jobType ?? job.jobType;
+            job.workHourStart = updateOpeningDTO.workHourStart ?? job.workHourStart;
+            job.workHourEnd = updateOpeningDTO.workHourEnd ?? job.workHourEnd;
+            job.salary = updateOpeningDTO.salary ?? job.salary;
+            job.negotiable = updateOpeningDTO.negotiable ?? job.negotiable;
+            job.description = updateOpeningDTO.description ?? job.description;
+            job.phone = updateOpeningDTO.phone ?? job.phone;
+            job.email = updateOpeningDTO.email ?? job.email;
+            job.location = updateOpeningDTO.location ?? job.location;
+            job.maxApplicants = updateOpeningDTO.maxApplicants ?? job.maxApplicants;
+            job.deadline = updateOpeningDTO.deadline ?? job.deadline;
+            job.status = updateOpeningDTO.status ?? job.status;
+
+            if (updateOpeningDTO.Requirements != null)
+            {
+                var existingRequirements = _db.JobRequirement.Where(r => r.jobID == jobID).ToList();
+                _db.JobRequirement.RemoveRange(existingRequirements);
+
+                foreach (var requirement in updateOpeningDTO.Requirements)
+                {
+                    var jobRequirement = new JobRequirement
+                    {
+                        jobID = job.jobID,
+                        requirement = requirement
+                    };
+                    _db.JobRequirement.Add(jobRequirement);
+                }
+            }
+
+            if (updateOpeningDTO.Responsibilities != null)
+            {
+                var existingResponsibilities = _db.JobResponsibility.Where(r => r.jobID == jobID).ToList();
+                _db.JobResponsibility.RemoveRange(existingResponsibilities);
+
+                foreach (var responsibility in updateOpeningDTO.Responsibilities)
+                {
+                    var jobResponsibility = new JobResponsibility
+                    {
+                        jobID = job.jobID,
+                        responsibility = responsibility
+                    };
+                    _db.JobResponsibility.Add(jobResponsibility);
+                }
+            }
+
+            _db.SaveChanges();
+
+            return "Job updated successfully.";
+        }
+
     }
 }

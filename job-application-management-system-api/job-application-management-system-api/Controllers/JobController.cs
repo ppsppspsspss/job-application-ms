@@ -45,6 +45,20 @@ public class JobController : ControllerBase
         }
     }
 
+    [HttpPut("update-job/{jobID}")]
+    public ActionResult UpdateJob(int jobID, [FromBody] UpdateOpeningDTO updateOpeningDTO)
+    {
+        try
+        {
+            _jobService.UpdateJob(jobID, updateOpeningDTO);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
     [AllowAnonymous]
     [HttpGet("get-all-jobs")]
     public ActionResult GetAllJobs()
@@ -60,7 +74,7 @@ public class JobController : ControllerBase
         }
     }
 
-    [HttpGet("update-status/{jobID}")]
+    [HttpPatch("update-status/{jobID}")]
     public ActionResult UpdateStatus(int jobID)
     {
         try
