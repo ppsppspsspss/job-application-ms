@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj": {}
+    "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
         "projectName": "job-application-management-system-api",
-        "projectPath": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
-        "packagesPath": "C:\\Users\\SDD-SA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\obj\\",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\job-application-management-system-api.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\SDD-SA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -95,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

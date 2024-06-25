@@ -1,0 +1,74 @@
+body{
+    background-color: #EFEFEF;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.application-form{
+    background-color: white;
+    position: relative;
+    left: 25%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #dddddd;
+    width: 700px;
+    padding: 40px;
+}
+
+.name{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.firstname{
+    width: 100%;
+    align-items: left;
+    margin-right: 20px;
+}
+
+.lastname{
+    width: 100%;
+    align-items: right;
+    margin-left: 20px;
+}
+
+.input{
+    border-radius: 0px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.label{
+    font: small sans-serif;
+}
+
+.title, .designation, .description, .phone, .email, .salary, .location, .max-applicants, .deadline, .bsc, .university, .cgpa, .aiub-id, .skills{
+    margin-bottom: 25px;
+}
+
+.button{
+    margin-top: 15px;
+}
+
+.help-label{
+    margin-top: 15px;
+    font: small sans-serif;
+    font-style: italic;
+    color: #6C757D;
+}
+
+.error-message{
+    font: small sans-serif;
+    color: red;
+    margin: 10px 0 10px 0;
+    word-wrap: break-word; 
+}
+
+.type{
+    font: small sans-serif;
+    width: 100%;
+    margin: 20px 0 25px 0;
+}

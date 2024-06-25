@@ -1,0 +1,28 @@
+.navbar {
+    background-color: white;
+    margin-top: 10px;
+    border: 2px solid #1E88E5;
+    width: 100%; 
+    padding: 15px;
+    position: -webkit-sticky; 
+    position: sticky;
+    top: 0; 
+    z-index: 1000; 
+}
+
+.controls{
+    font: medium sans-serif;
+    color: #1E88E5;
+    margin-left: 15px;
+}
+
+a{
+    font: medium sans-serif;
+    color: #1E88E5;
+    text-decoration: none;
+}
+
+
+
+
+

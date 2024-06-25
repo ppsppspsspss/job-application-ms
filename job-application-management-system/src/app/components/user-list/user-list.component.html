@@ -1,0 +1,17 @@
+<p-table [value]="applications" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '35rem' }">
+    <ng-template pTemplate="caption"> Job Application List </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-application>
+        <tr (click)="loadProfile(application.jobApplicationID)">
+            <td>{{ application.jobApplicationID }}</td>
+            <td>{{ application.firstName + ' ' + application.lastName }}</td>
+            <td>{{ application.email }}</td>
+        </tr>
+    </ng-template>
+</p-table>

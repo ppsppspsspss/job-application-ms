@@ -1,0 +1,82 @@
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.logo{
+    text-align: center;
+}
+
+.sign-in {
+    width: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    padding: 14px; 
+}
+
+.label {
+    padding-top: 12px; 
+    font: small sans-serif;
+    text-align: center;
+    padding-bottom: 28px; 
+}
+
+input {
+    width: 100%;
+    border-radius: 0;
+    font: small sans-serif;
+}
+
+.username {
+    padding-bottom: 12px; 
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.password {
+    padding-bottom: 12px; 
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button {
+    width: 100%;
+    border-radius: 0;
+    font: small sans-serif;
+}
+
+.button{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+a {
+    text-decoration: none;
+    font: small sans-serif;
+    color: #009DCD;
+}
+
+.forgot-password {
+    text-align: center;
+    padding-top: 28px; 
+    padding-bottom: 12px; 
+}
+
+.invalid-login,
+.username-error,
+.password-error {
+    display: block;
+    text-align: center;
+    font: small sans-serif;
+    color: red;
+    margin-bottom: 15px;
+    word-wrap: break-word; 
+}

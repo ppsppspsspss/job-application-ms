@@ -1,0 +1,39 @@
+body{
+    background-color: #EFEFEF;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+.user {
+    padding: 40px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    gap: 20px;
+}
+
+.user .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.logo {
+    width: 92px;
+}
+
+.home{
+    margin-top: 25px;
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.job-list{
+    width: 100%;
+}

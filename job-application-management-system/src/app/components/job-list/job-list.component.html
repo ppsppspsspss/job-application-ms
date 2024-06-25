@@ -1,0 +1,94 @@
+<p-table [value]="jobs" styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="caption">
+        <div style="padding: 10px 0 10px 0; margin: 0 10px 0 10px;">
+            Job Openings 
+            <span style="color: #009DCD; margin-left: 30px;">[ click on a row to see the applications ]</span>
+            <span class="create-new-opening" (click)="createNewOpening()">Create a New Opening</span>
+        </div> 
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Job Title</th>
+            <th>Designation</th>
+            <th>Type</th>
+            <th>Salary</th>
+            <th>Vacancy</th>
+            <th>Responses</th>
+            <th colspan="3">Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-job>
+        <tr (click)="loadJob(job.jobID)">
+            <td>{{ job.jobTitle }}</td>
+            <td>{{ job.designation }}</td>
+            <td>{{ job.jobType }}</td>
+            <td>{{ job.salary }}</td>
+            <td>{{ getRemainingVacancies(job) }}</td>
+            <td>
+                <p-toggleButton 
+                    [ngModel]="job.status === 'false'" 
+                    onLabel="Open" 
+                    offLabel="Close" 
+                    [style]="{ width: '8em' }"
+                    (click)="toggleStatus($event, job)">
+                </p-toggleButton>
+            </td>
+            <td>
+                <button pButton pRipple icon="pi pi-info-circle" (click)="showDialog($event, job)"></button>
+            </td>
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" (click)="updateOpening($event, job.jobID)"></button>
+            </td>
+            <td>
+                <button pButton pRipple icon="pi pi-trash" (click)="deleteOpening($event, job.jobID)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-dialog header="{{loadJobInfo.jobTitle}}" [(visible)]="visible" [style]="{width: '75vw'}">
+    <p>
+      {{loadJobInfo.postedOn}}
+    </p>
+    <p>
+      {{loadJobInfo.description}}
+    </p>
+    <p>
+      <b>Requirements: </b>
+      <br>
+      <ul>
+        <li *ngFor="let requirement of jobRequirements">{{requirement.requirement}}</li>
+      </ul>
+    <p>
+      <b>Responsibilities: </b>
+      <br>
+      <ul>
+        <li *ngFor="let responsibility of jobResponsibilities">{{responsibility.responsibility}}</li>
+      </ul>
+    <br>
+    <p>
+      <b>Designation: </b>{{loadJobInfo.designation}}
+    </p>
+    <p>
+      <b>Job Type: </b>{{loadJobInfo.jobType}}
+    </p>
+    <p>
+      <b>Work Hour:</b> From {{loadJobInfo.workHourStart}} to {{loadJobInfo.workHourEnd}}
+    </p>
+    <p>
+      <b>Salary:</b> {{loadJobInfo.salary}}
+    </p>
+    <p>
+      <b>Negotiable:</b> {{loadJobInfo.negotiable}}
+    </p>
+    <p>
+      <b>Vacancy:</b> {{getRemainingVacancies(loadJobInfo)}}
+    </p>
+    <p>
+      <b>Deadline:</b> {{loadJobInfo.deadline}}
+    </p>
+    <p>
+      {{loadJobInfo.phone}} <br>
+      {{loadJobInfo.email}} <br>
+      {{loadJobInfo.location}}
+    </p>
+</p-dialog>

@@ -1,0 +1,162 @@
+<div class="profile">
+    <div class="profile-container">
+        <table class="info">
+            <tr>
+                <td colspan="3"><span style="font: large sans-serif;">{{jobApplication.firstName + ' ' + jobApplication.lastName}}</span></td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span style="font: large sans-serif;">Opening Info</span></td>
+            </tr>
+            <tr>
+                <td>Application ID</td>
+                <td>:</td>
+                <td>{{jobApplication.jobApplicationID}}</td>
+            </tr>
+            <tr>
+                <td>Job Title</td>
+                <td>:</td>
+                <td>{{job.jobTitle}}</td>
+            </tr>
+            <tr>
+                <td>Designation</td>
+                <td>:</td>
+                <td>{{job.designation}}</td>
+            </tr>
+            <tr>
+                <td>Work Hour</td>
+                <td>:</td>
+                <td>{{job.workHourStart + ' to ' +job.workHourEnd}}</td>
+            </tr>
+            <tr>
+                <td>Salary</td>
+                <td>:</td>
+                <td>{{job.salary}}</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span style="font: large sans-serif;">General Info</span></td>
+            </tr>
+            <tr>
+                <td>Fullname</td>
+                <td>:</td>
+                <td>{{jobApplication.firstName + ' ' + jobApplication.lastName}}</td>
+            </tr>
+            <tr>
+                <td>Fathers Name</td>
+                <td>:</td>
+                <td>{{jobApplication.fathersName}}</td>
+            </tr>
+            <tr>
+                <td>Mothers Name</td>
+                <td>:</td>
+                <td>{{jobApplication.mothersName}}</td>
+            </tr>
+            <tr>
+                <td>Current Address</td>
+                <td>:</td>
+                <td>{{jobApplication.currentAddress}}</td>
+            </tr>
+            <tr>
+                <td>Permanent Address</td>
+                <td>:</td>
+                <td>{{jobApplication.permanentAddress}}</td>
+            </tr>
+            <tr>
+                <td>Contact No.</td>
+                <td>:</td>
+                <td>{{jobApplication.phone}}</td>
+            </tr>
+            <tr>
+                <td>Email Address</td>
+                <td>:</td>
+                <td>{{jobApplication.email}}</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span style="font: large sans-serif;">BSC Info</span></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>:</td>
+                <td>{{bscStatus(jobApplication)}}</td>
+            </tr>
+            <tr *ngIf="bscAIUB(jobApplication)">
+                <td>AIUB ID</td>
+                <td>:</td>
+                <td>{{jobApplication.bscAIUBID}}</td>
+            </tr>
+            <tr>
+                <td>University</td>
+                <td>:</td>
+                <td>{{jobApplication.bscUniversity}}</td>
+            </tr>
+            <tr>
+                <td>Cgpa</td>
+                <td>:</td>
+                <td>{{jobApplication.bscCGPA}}</td>
+            </tr>
+            <tr>
+                <td>Admission Date</td>
+                <td>:</td>
+                <td>{{jobApplication.bscAdmissionDate}}</td>
+            </tr>
+            <tr>
+                <td>Graduation Date</td>
+                <td>:</td>
+                <td>{{jobApplication.bscGraduationDate}}</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span style="font: large sans-serif;">MSC Info</span></td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>:</td>
+                <td>{{mscStatus(jobApplication)}}</td>
+            </tr>
+            <tr *ngIf="mscAIUB(jobApplication)">
+                <td>AIUB ID</td>
+                <td>:</td>
+                <td>{{jobApplication.mscAIUBID}}</td>
+            </tr>
+            <tr>
+                <td>University</td>
+                <td>:</td>
+                <td>{{jobApplication.mscUniversity}}</td>
+            </tr>
+            <tr>
+                <td>Cgpa</td>
+                <td>:</td>
+                <td>{{jobApplication.mscCGPA}}</td>
+            </tr>
+            <tr>
+                <td>Admission Date</td>
+                <td>:</td>
+                <td>{{jobApplication.mscAdmissionDate}}</td>
+            </tr>
+            <tr>
+                <td>Graduation Date</td>
+                <td>:</td>
+                <td>{{jobApplication.mscGraduationDate}}</td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span style="font: large sans-serif;">Skills</span></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span *ngFor="let skill of jobApplication.skills">{{skill + ', '}}</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
