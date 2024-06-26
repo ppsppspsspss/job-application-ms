@@ -1,0 +1,14 @@
+<div class="navbar-header">
+    <div class="controls">
+        <a routerLink="/home">Home</a>
+    </div>
+    <div>
+        <div *ngIf="signedIn === false" class="controls">
+            <a routerLink="/sign-in">Sign In</a>
+        </div>
+        <div *ngIf="signedIn === true" class="controls">
+            <a (click)="logOut()">Log Out</a>
+        </div>
+    </div>
+    
+</div>

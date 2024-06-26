@@ -7,8 +7,8 @@ namespace job_application_management_system_api.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int userSkillID { get; set; }
-        public int jobApplicationID { get; set; }
-        public string? skill { get; set; }
+        public int UserSkillID { get; set; }
+        public int JobApplicationID { get; set; }
+        public string? Skill { get; set; }
     }
 }

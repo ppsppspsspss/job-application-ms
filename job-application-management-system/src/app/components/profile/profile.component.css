@@ -1,0 +1,31 @@
+.profile{
+    padding: 15px;
+    border: 1px solid #DDDDDD;
+    background-color: white;
+}
+
+.profile-container {
+    display: flex; 
+    align-items: flex-start;
+}
+
+.info {
+    flex: 1;
+    margin-right: 20px; 
+    border-collapse: collapse;
+    width: 100%;
+    font: small sans-serif;
+}
+
+.info td {
+    padding: 15px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.info td:first-child {
+    width: 200px; 
+}
+
+.info tr:not(:last-child) td {
+    padding-bottom: 15px;
+}

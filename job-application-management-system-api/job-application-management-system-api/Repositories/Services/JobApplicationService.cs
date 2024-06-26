@@ -1,6 +1,7 @@
 ﻿using job_application_management_system_api.Models;
 using job_application_management_system_api.Models.DTOs;
 using job_application_management_system_api.Repositories.IServices;
+using job_application_management_system_api.Utils;
 using Microsoft.AspNetCore.Builder;
 using SocialMedia.API.Data;
 
@@ -16,103 +17,203 @@ namespace job_application_management_system_api.Repositories.Services
             _db = db;
         }
 
-        public List<GetJobApplicationDTO> GetAllJobApplications(int jobID)
+        public Result<string> Application(JobApplicationDTO jobApplicationDTO)
         {
-
-            var jobApplications = _db.JobApplication.Where(jobApplication => jobApplication.jobID == jobID).Select(jobApplication => new GetJobApplicationDTO
+            try
             {
-                jobApplicationID = jobApplication.jobApplicationID,
-                jobID = jobApplication.jobID,
-                firstName = jobApplication.firstName,
-                lastName = jobApplication.lastName,
-                fathersName = jobApplication.fathersName,
-                mothersName = jobApplication.mothersName,
-                phone = jobApplication.phone,
-                email = jobApplication.email,
-                currentAddress = jobApplication.currentAddress,
-                permanentAddress = jobApplication.permanentAddress,
-                bscStatus = jobApplication.bscStatus,
-                bscAdmissionDate = jobApplication.bscAdmissionDate,
-                bscAIUB = jobApplication.bscAIUB,
-                bscAIUBID = jobApplication.bscAIUBID,
-                bscUniversity = jobApplication.bscUniversity,
-                bscCGPA = jobApplication.bscCGPA,
-                bscGraduate = jobApplication.bscGraduate,
-                bscGraduationDate = jobApplication.bscGraduationDate,
-                mscStatus = jobApplication.mscStatus,
-                mscAdmissionDate = jobApplication.mscAdmissionDate,
-                mscAIUB = jobApplication.mscAIUB,
-                mscAIUBID = jobApplication.mscAIUBID,
-                mscUniversity = jobApplication.mscUniversity,
-                mscCGPA = jobApplication.mscCGPA,
-                mscGraduate = jobApplication.mscGraduate,
-                mscGraduationDate = jobApplication.mscGraduationDate,
-                cv = jobApplication.cv,
-                skills = _db.UserSkill
-                .Where(skill => skill.jobApplicationID == jobApplication.jobApplicationID && skill.skill != null)
-                .Select(skill => skill.skill!)
-                .ToList()
-            }).ToList();
+                var _jobApplication = new JobApplication
+                {
+                    JobID = jobApplicationDTO.JobID,
+                    FirstName = jobApplicationDTO.FirstName,
+                    LastName = jobApplicationDTO.LastName,
+                    FathersName = jobApplicationDTO.FathersName,
+                    MothersName = jobApplicationDTO.MothersName,
+                    Phone = jobApplicationDTO.Phone,
+                    Email = jobApplicationDTO.Email,
+                    CurrentAddress = jobApplicationDTO.CurrentAddress,
+                    PermanentAddress = jobApplicationDTO.PermanentAddress,
+                    BscStatus = jobApplicationDTO.BscStatus,
+                    BscAdmissionDate = jobApplicationDTO.BscAdmissionDate,
+                    BscAIUB = jobApplicationDTO.BscAIUB,
+                    BscAIUBID = jobApplicationDTO.BscAIUBID,
+                    BscUniversity = jobApplicationDTO.BscUniversity,
+                    BscCGPA = jobApplicationDTO.BscCGPA,
+                    BscGraduate = jobApplicationDTO.BscGraduate,
+                    BscGraduationDate = jobApplicationDTO.BscGraduationDate,
+                    MscStatus = jobApplicationDTO.MscStatus,
+                    MscAdmissionDate = jobApplicationDTO.MscAdmissionDate,
+                    MscAIUB = jobApplicationDTO.MscAIUB,
+                    MscAIUBID = jobApplicationDTO.MscAIUBID,
+                    MscUniversity = jobApplicationDTO.MscUniversity,
+                    MscCGPA = jobApplicationDTO.MscCGPA,
+                    MscGraduate = jobApplicationDTO.MscGraduate,
+                    MscGraduationDate = jobApplicationDTO.MscGraduationDate,
+                    Cv = jobApplicationDTO.Cv
+                };
 
-            if (jobApplications != null && jobApplications.Any())
-                return jobApplications;
+                _db.JobApplication.Add(_jobApplication);
+                _db.SaveChanges();
+
+                if (jobApplicationDTO.Skills != null && jobApplicationDTO.Skills.Any())
+                {
+                    foreach (var skill in jobApplicationDTO.Skills)
+                    {
+                        var _userSkill = new UserSkill
+                        {
+                            JobApplicationID = _jobApplication.JobApplicationID,
+                            Skill = skill
+                        };
+                        _db.UserSkill.Add(_userSkill);
+                    }
+                    _db.SaveChanges();
+                }
+
+                this.IncrementApplicantsCount(jobApplicationDTO.JobID);
+
+                return new Result<string>(false, new List<string> { "Job application submitted successfully." }, null);
+            }
+            catch (Exception ex)
+            {
+                return new Result<string>(true, new List<string> { ex.Message }, null);
+            }
+        }
+
+        public Result<List<GetJobApplicationDTO>> GetAllJobApplications(int jobID)
+        {
+            try
+            {
+                var jobApplications = _db.JobApplication
+                    .Where(jobApplication => jobApplication.JobID == jobID)
+                    .Select(jobApplication => new GetJobApplicationDTO
+                    {
+                        JobApplicationID = jobApplication.JobApplicationID,
+                        JobID = jobApplication.JobID,
+                        FirstName = jobApplication.FirstName,
+                        LastName = jobApplication.LastName,
+                        FathersName = jobApplication.FathersName,
+                        MothersName = jobApplication.MothersName,
+                        Phone = jobApplication.Phone,
+                        Email = jobApplication.Email,
+                        CurrentAddress = jobApplication.CurrentAddress,
+                        PermanentAddress = jobApplication.PermanentAddress,
+                        BscStatus = jobApplication.BscStatus,
+                        BscAdmissionDate = jobApplication.BscAdmissionDate,
+                        BscAIUB = jobApplication.BscAIUB,
+                        BscAIUBID = jobApplication.BscAIUBID,
+                        BscUniversity = jobApplication.BscUniversity,
+                        BscCGPA = jobApplication.BscCGPA,
+                        BscGraduate = jobApplication.BscGraduate,
+                        BscGraduationDate = jobApplication.BscGraduationDate,
+                        MscStatus = jobApplication.MscStatus,
+                        MscAdmissionDate = jobApplication.MscAdmissionDate,
+                        MscAIUB = jobApplication.MscAIUB,
+                        MscAIUBID = jobApplication.MscAIUBID,
+                        MscUniversity = jobApplication.MscUniversity,
+                        MscCGPA = jobApplication.MscCGPA,
+                        MscGraduate = jobApplication.MscGraduate,
+                        MscGraduationDate = jobApplication.MscGraduationDate,
+                        Cv = jobApplication.Cv,
+                        Skills = _db.UserSkill
+                            .Where(skill => skill.JobApplicationID == jobApplication.JobApplicationID && skill.Skill != null)
+                            .Select(skill => skill.Skill!)
+                            .ToList()
+                    })
+                    .ToList();
+
+                if (jobApplications != null && jobApplications.Any())
+                {
+                    return new Result<List<GetJobApplicationDTO>>(false, new List<string> { "Job applications found." }, jobApplications);
+                }
+                else
+                {
+                    return new Result<List<GetJobApplicationDTO>>(true, new List<string> { "No job applications found." }, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Result<List<GetJobApplicationDTO>>(true, new List<string> { ex.Message } , null);
+            }
+        }
+
+        public Result<GetJobApplicationDTO> GetJobApplication(int jobApplicationID)
+        {
+            try
+            {
+                var jobApplication = _db.JobApplication
+                .Where(application => application.JobApplicationID == jobApplicationID)
+                .Select(application => new GetJobApplicationDTO
+                {
+                    JobApplicationID = application.JobApplicationID,
+                    JobID = application.JobID,
+                    FirstName = application.FirstName,
+                    LastName = application.LastName,
+                    FathersName = application.FathersName,
+                    MothersName = application.MothersName,
+                    Phone = application.Phone,
+                    Email = application.Email,
+                    CurrentAddress = application.CurrentAddress,
+                    PermanentAddress = application.PermanentAddress,
+                    BscStatus = application.BscStatus,
+                    BscAdmissionDate = application.BscAdmissionDate,
+                    BscAIUB = application.BscAIUB,
+                    BscAIUBID = application.BscAIUBID,
+                    BscUniversity = application.BscUniversity,
+                    BscCGPA = application.BscCGPA,
+                    BscGraduate = application.BscGraduate,
+                    BscGraduationDate = application.BscGraduationDate,
+                    MscStatus = application.MscStatus,
+                    MscAdmissionDate = application.MscAdmissionDate,
+                    MscAIUB = application.MscAIUB,
+                    MscAIUBID = application.MscAIUBID,
+                    MscUniversity = application.MscUniversity,
+                    MscCGPA = application.MscCGPA,
+                    MscGraduate = application.MscGraduate,
+                    MscGraduationDate = application.MscGraduationDate,
+                    Cv = application.Cv,
+                    Skills = _db.UserSkill
+                        .Where(skill => skill.JobApplicationID == application.JobApplicationID)
+                        .Select(skill => skill.Skill)
+                        .Where(skill => skill != null)
+                        .ToList()!
+                }).FirstOrDefault();
+
+                if (jobApplication != null)
+                {
+                    return new Result<GetJobApplicationDTO>(false, new List<string> { "Job application found" }, jobApplication);
+                }
+                else
+                {
+                    return new Result<GetJobApplicationDTO>(true, new List<string> { "No job application found" }, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Result<GetJobApplicationDTO>(true, new List<string> { ex.Message }, null);
+            }
+        }
+
+        private void IncrementApplicantsCount(int jobId)
+        {
+            var job = _db.Job.FirstOrDefault(job => job.JobID == jobId);
+
+            if (job != null)
+            {
+                if (!string.IsNullOrEmpty(job.Applicants))
+                {
+                    int currentApplicants = int.Parse(job.Applicants);
+                    currentApplicants++;
+                    job.Applicants = currentApplicants.ToString();
+                }
+                else
+                {
+                    job.Applicants = "1";
+                }
+                _db.SaveChanges();
+            }
             else
-                throw new Exception("No job applications found");
-
-        }
-
-        public GetJobApplicationDTO GetJobApplication(int jobApplicationID)
-        {
-            var jobApplication = _db.JobApplication
-        .Where(application => application.jobApplicationID == jobApplicationID)
-        .Select(application => new GetJobApplicationDTO
-        {
-            jobApplicationID = application.jobApplicationID,
-            jobID = application.jobID,
-            firstName = application.firstName,
-            lastName = application.lastName,
-            fathersName = application.fathersName,
-            mothersName = application.mothersName,
-            phone = application.phone,
-            email = application.email,
-            currentAddress = application.currentAddress,
-            permanentAddress = application.permanentAddress,
-            bscStatus = application.bscStatus,
-            bscAdmissionDate = application.bscAdmissionDate,
-            bscAIUB = application.bscAIUB,
-            bscAIUBID = application.bscAIUBID,
-            bscUniversity = application.bscUniversity,
-            bscCGPA = application.bscCGPA,
-            bscGraduate = application.bscGraduate,
-            bscGraduationDate = application.bscGraduationDate,
-            mscStatus = application.mscStatus,
-            mscAdmissionDate = application.mscAdmissionDate,
-            mscAIUB = application.mscAIUB,
-            mscAIUBID = application.mscAIUBID,
-            mscUniversity = application.mscUniversity,
-            mscCGPA = application.mscCGPA,
-            mscGraduate = application.mscGraduate,
-            mscGraduationDate = application.mscGraduationDate,
-            cv = application.cv,
-            skills = _db.UserSkill
-                .Where(skill => skill.jobApplicationID == application.jobApplicationID)
-                .Select(skill => skill.skill)
-                .Where(skill => skill != null)
-                .ToList()!
-        })
-        .FirstOrDefault();
-
-            if (jobApplication != null) return jobApplication;
-            else throw new Exception("No job application found");
-
-        }
-
-        public string HasApplied(int jobID) {
-
-            var application = _db.JobApplication.FirstOrDefault(application => application.jobID == jobID);
-            if (application != null) return "true";
-            else return "false";
-
+            {
+                throw new Exception("Job not found.");
+            }
         }
 
     }

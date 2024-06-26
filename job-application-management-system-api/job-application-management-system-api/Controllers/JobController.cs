@@ -1,8 +1,11 @@
-﻿using job_application_management_system_api.Models.DTOs;
+﻿using job_application_management_system_api.Models;
+using job_application_management_system_api.Models.DTOs;
 using job_application_management_system_api.Repositories.IServices;
+using job_application_management_system_api.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using SocialMedia.API.Models.DTOs;
 
 [ApiController]
 [Route("api/job")]
@@ -16,137 +19,57 @@ public class JobController : ControllerBase
         _jobService = jobService;
     }
 
-    [AllowAnonymous]
-    [HttpPost("job-application")]
-    public ActionResult JobApplication([FromBody] JobApplicationDTO jobApplicationDTO)
-    {
-        try
-        {
-            _jobService.JobApplication(jobApplicationDTO);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
-    }
-
     [HttpPost("create-opening")]
-    public ActionResult CreateOpening([FromBody] CreateOpeningDTO createOpeningDTO)
+    public Result<string> CreateOpening([FromBody] CreateOpeningDTO createOpeningDTO)
     {
-        try
-        {
-            _jobService.CreateOpening(createOpeningDTO);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.CreateOpening(createOpeningDTO);
     }
 
     [HttpPut("update-job/{jobID}")]
-    public ActionResult UpdateJob(int jobID, [FromBody] UpdateOpeningDTO updateOpeningDTO)
+    public Result<string> UpdateJob(int jobID, [FromBody] UpdateOpeningDTO updateOpeningDTO)
     {
-        try
-        {
-            _jobService.UpdateJob(jobID, updateOpeningDTO);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.UpdateJob(jobID, updateOpeningDTO);
     }
 
     [AllowAnonymous]
     [HttpGet("get-all-jobs")]
-    public ActionResult GetAllJobs()
+    public Result<List<Job>> GetAllJobs()
     {
-        try
-        {
-            var jobs = _jobService.GetAllJobs();
-            return Ok(jobs);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.GetAllJobs();
     }
 
     [HttpPatch("update-status/{jobID}")]
-    public ActionResult UpdateStatus(int jobID)
+    public Result<string> UpdateStatus(int jobID)
     {
-        try
-        {
-            _jobService.UpdateStatus(jobID);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.UpdateStatus(jobID);
     }
 
     [AllowAnonymous]
     [HttpGet("get-job/{jobID}")]
-    public ActionResult GetJob(int jobID)
+    public Result<Job> GetJob(int jobID)
     {
-        try
-        {
-            var job = _jobService.GetJob(jobID);
-            return Ok(job);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.GetJob(jobID);
     }
 
     [AllowAnonymous]
     [HttpGet("get-job-requirements/{jobID}")]
-    public ActionResult GetJobRequirements(int jobID)
+    public Result<List<JobRequirement>> GetJobRequirements(int jobID)
     {
-        try
-        {
-            var jobRequirements = _jobService.GetJobRequirements(jobID);
-            return Ok(jobRequirements);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.GetJobRequirements(jobID);
     }
 
     [AllowAnonymous]
     [HttpGet("get-job-responsibilities/{jobID}")]
-    public ActionResult GetJobResponsibilities(int jobID)
+    public Result<List<JobResponsibility>> GetJobResponsibilities(int jobID)
     {
-        try
-        {
-            var jobResponsibilities = _jobService.GetJobResponsibilities(jobID);
-            return Ok(jobResponsibilities);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.GetJobResponsibilities(jobID);
     }
 
     [HttpDelete("delete-job/{jobID}")]
-    public ActionResult DeleteJob(int jobID)
+    public Result<string> DeleteJob(int jobID)
     {
-        try
-        {
-            _jobService.DeleteJob(jobID);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return _jobService.DeleteJob(jobID);
     }
-
 
 
 }

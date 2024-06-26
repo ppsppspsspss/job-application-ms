@@ -1,9 +1,10 @@
-﻿using SocialMedia.API.Models.DTOs;
+﻿using job_application_management_system_api.Utils;
+using SocialMedia.API.Models.DTOs;
 
 namespace SocialMedia.API.Services
 {
     public interface IAuthService
     {
-        string SignIn(SignInDTO signInDTO);
+        Result<string> SignIn(SignInDTO signInDTO);
     }
 }

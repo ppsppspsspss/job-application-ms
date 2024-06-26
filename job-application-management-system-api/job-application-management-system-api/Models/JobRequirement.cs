@@ -7,9 +7,9 @@ namespace job_application_management_system_api.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int jobRequirementID { get; set; }
-        public int jobID { get; set; }
-        public string? requirement { get; set; }
+        public int JobRequirementID { get; set; }
+        public int JobID { get; set; }
+        public string? Requirement { get; set; }
 
     }
 }

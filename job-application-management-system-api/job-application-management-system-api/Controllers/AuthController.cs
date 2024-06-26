@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using job_application_management_system_api.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.API.Models.DTOs;
@@ -19,17 +20,9 @@ namespace aiub_portal_api.Controllers
 
         [AllowAnonymous]
         [HttpPost("sign-in")]
-        public ActionResult SignIn([FromBody] SignInDTO signInDTO)
+        public Result<string> SignIn([FromBody] SignInDTO signInDTO)
         {
-            try
-            {
-                var token = _authService.SignIn(signInDTO);
-                return Ok(token);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return this._authService.SignIn(signInDTO);
         }
     }
 }

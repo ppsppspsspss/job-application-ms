@@ -21,7 +21,7 @@ namespace SocialMedia.API.Models
                              ?? throw new InvalidOperationException("JwtConfig:Duration configuration is missing."));
         }
 
-        public string GenerateToken(string userID, string fullname, string phone, string email, string role)
+        public string GenerateToken(string? userID, string? fullname, string? phone, string? email, string? role)
         {
             if (userID == null) throw new ArgumentNullException(nameof(userID));
             if (fullname == null) throw new ArgumentNullException(nameof(fullname));

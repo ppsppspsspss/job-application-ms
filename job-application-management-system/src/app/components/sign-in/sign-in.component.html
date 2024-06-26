@@ -1,0 +1,32 @@
+<body>
+    <div class="sign-in">
+        <div class="logo">
+            <img src="../../../assets/images/aiub_logo.png" alt="aiub_logo" width="350px">
+        </div>
+        <span class="invalid-login" *ngIf="status">
+            Invalid email or password.
+        </span>
+        <div class="label">Sign in with your organizational email address.</div>
+        <form (ngSubmit)="handleSubmit()">
+            <div class="username">
+                <input type="text" name="email" [(ngModel)]="email" #emailCtrl="ngModel" pInputText placeholder="Email" required />
+            </div>
+            <div class="username-error" *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)">
+                The email field is required
+            </div>
+            <div class="password">
+                <input type="password" name="password" [(ngModel)]="password" #passwordCtrl="ngModel" pInputText placeholder="Password" required />
+            </div>
+            <div class="password-error" *ngIf="passwordCtrl.invalid && (passwordCtrl.dirty || passwordCtrl.touched)">
+                The password field is required
+            </div>
+            <div class="button">
+                <button pButton type="submit" label="Log In"></button>
+            </div>
+        </form>
+        <div class="forgot-password">
+            <a href="">Can't access your account?</a>
+        </div>
+    </div>
+</body>
+<p-toast></p-toast>

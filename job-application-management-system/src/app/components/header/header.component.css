@@ -1,0 +1,31 @@
+.navbar-header{
+    background-color: transparent;
+    border: 2px solid #1E88E5;
+    width: max;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls{
+    font: medium sans-serif;
+    color: #1E88E5;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.controls span{
+    margin-right: 30px;
+}
+
+span:hover{
+    color: #5E6969;
+}
+
+a{
+    font: medium sans-serif;
+    color: #1E88E5;
+    text-decoration: none;
+}

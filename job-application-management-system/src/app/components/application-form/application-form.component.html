@@ -1,0 +1,215 @@
+<app-header></app-header>
+<app-navbar (back)="onBack()"></app-navbar>
+<body>
+  <div class="application-form">
+    <div class="name">
+      <div class="firstname">
+        <span class="label">First Name</span>
+        <input type="text" placeholder="e.g. Rianul" pInputText class="input" [(ngModel)]="firstName" #firstNameModel="ngModel" required/>
+        <div class="error-message" *ngIf="firstNameModel.invalid && (firstNameModel.dirty || firstNameModel.touched)">
+          First name field is required
+        </div>
+      </div>
+      <div class="lastname">
+        <span class="label">Last Name</span>
+        <input type="text" placeholder="e.g. Amin" pInputText class="input" [(ngModel)]="lastName" #lastNameModel="ngModel" required/>
+        <div class="error-message" *ngIf="lastNameModel.invalid && (lastNameModel.dirty || lastNameModel.touched)">
+          Last name field is required
+        </div>
+      </div>
+    </div>
+    <div class="fathers-name">
+      <span class="label">Father's Name</span>
+      <input type="text" placeholder="e.g. Ruhul Amin" pInputText class="input" [(ngModel)]="fathersName" #fathersNameModel="ngModel" required/>
+      <div class="error-message" *ngIf="fathersNameModel.invalid && (fathersNameModel.dirty || fathersNameModel.touched)">
+        Father's name field is required
+      </div>
+    </div>
+    <div class="mothers-name">
+      <span class="label">Mother's Name</span>
+      <input type="text" placeholder="e.g. Hena Akter" pInputText class="input" [(ngModel)]="mothersName" #mothersNameModel="ngModel" required/>
+      <div class="error-message" *ngIf="mothersNameModel.invalid && (mothersNameModel.dirty || mothersNameModel.touched)">
+        Mother's name field is required
+      </div>
+    </div>
+    <div class="phone">
+      <span class="label">Phone</span>
+      <input type="text" placeholder="e.g. 01402246680" pInputText class="input" [(ngModel)]="phone" #phoneModel="ngModel" required/>
+      <div class="error-message" *ngIf="phoneModel.invalid && (phoneModel.dirty || phoneModel.touched)">
+        Phone number field is required
+      </div>
+    </div>
+    <div class="email">
+      <span class="label">Email</span>
+      <input type="text" placeholder="e.g. rianulamin.r@gmail.com" pInputText class="input" [(ngModel)]="email" #emailModel="ngModel" required/>
+      <div class="error-message" *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
+        Email address field is required
+      </div>
+    </div>
+    <div class="current-address">
+      <span class="label">Current Address</span>
+      <textarea rows="5" cols="81" placeholder="e.g. 290/1 A Khilgaon Railgate, Dhaka 1219." pInputTextarea [autoResize]="true" class="input" [(ngModel)]="currentAddress" #currentAddressModel="ngModel" required></textarea>
+      <div class="error-message" *ngIf="currentAddressModel.invalid && (currentAddressModel.dirty || currentAddressModel.touched)">
+        Current address field is required
+      </div>
+    </div>
+    <div class="permanent-address" style="margin-bottom: 35px;">
+      <span class="label">Permanent Address</span>
+      <textarea rows="5" cols="81" placeholder="e.g. 290/1 A Khilgaon Railgate, Dhaka 1219." pInputTextarea [autoResize]="true" class="input" [(ngModel)]="permanentAddress" #permanentAddressModel="ngModel" required></textarea>
+      <div style="margin-top: 15px; margin-bottom: 25px;">
+        <p-checkbox [(ngModel)]="sameAsCurrentAddress" [binary]="true" inputId="binary" (onChange)="onSameAsCurrentAddressChange()"></p-checkbox>
+        <span class="label" style="margin-left: 15px;">Same as the current address</span>
+      </div>
+      <div class="error-message" *ngIf="permanentAddressModel.invalid && (permanentAddressModel.dirty || permanentAddressModel.touched)">
+        Permanent address field is required
+      </div>
+    </div>
+    <div class="bsc">
+      <span class="label">Did you do your BSC?</span>
+      <div class="button">
+        <p-toggleButton onLabel="Yes" offLabel="No" [(ngModel)]="bsc" [style]="{ width: '100%'}"></p-toggleButton>
+        <div class="help-label" style="margin-bottom: 15px;">i. click here if you're doing your bsc, else leave it as it is</div>
+      </div>
+      <div class="bsc-status" *ngIf="bsc" style="margin-top: 25px;">
+        <span class="label">Are you a student of AIUB?</span>
+        <div class="button" style="margin-bottom: 15px;">
+          <p-toggleButton onLabel="Yes" offLabel="No" [(ngModel)]="bscAIUB" [style]="{ width: '100%'}" (onChange)="onBscAIUBChange()"></p-toggleButton>
+          <div class="help-label">i. click here if you're a student of aiub, else leave it as it is</div>
+        </div>
+        <div class="bsc-info-aiub" *ngIf="bscAIUB">
+          <div class="aiub-id" style="margin-top: 25px;">
+            <span class="label">AIUB ID</span>
+            <input type="text" placeholder="e.g. 21-44589-1" pInputText class="input" [(ngModel)]="aiubIdBsc" #aiubIdBscModel="ngModel" required/>
+            <div class="error-message" *ngIf="aiubIdBscModel.invalid && (aiubIdBscModel.dirty || aiubIdBscModel.touched)">
+              AIUB ID field is required
+            </div>
+          </div>
+        </div>
+        <div class="bsc-info-non-aiub">
+          <div class="university" style="margin-top: 25px;">
+            <span class="label">University</span>
+            <input type="text" placeholder="e.g. American International University-Bangladesh" pInputText class="input" [(ngModel)]="universityBsc" [readonly]="bscAIUB" #universityBscModel="ngModel" required/>
+            <div class="error-message" *ngIf="universityBscModel.invalid && (universityBscModel.dirty || universityBscModel.touched)">
+              University field is required
+            </div>
+          </div>
+          <div class="cgpa">
+            <span class="label">CGPA</span>
+            <input type="text" placeholder="e.g. 3.84" pInputText class="input" [(ngModel)]="cgpaBsc" #cgpaBscModel="ngModel" required/>
+            <div class="error-message" *ngIf="cgpaBscModel.invalid && (cgpaBscModel.dirty || cgpaBscModel.touched)">
+              CGPA field is required
+            </div>
+          </div>
+        </div>
+        <span class="label">Did you graduate?</span>
+        <div class="button">
+          <p-toggleButton onLabel="Yes" offLabel="No" [(ngModel)]="bscGraduate" [style]="{ width: '100%'}"></p-toggleButton>
+          <div class="help-label">i. click here if you have graduated, else leave it as it is</div>
+        </div>
+        <div class="bsc-graduate" *ngIf="bscGraduate" style="margin-top: 25px;">
+          <span class="label">Graduation Date</span>
+          <div style="margin-top: 15px; margin-bottom: 15px;">
+            <p-calendar [(ngModel)]="bscGraduationDate" [showIcon]="true" dateFormat="d/m/yy" [style]="{ width: '100%'}"></p-calendar>
+          </div>
+        </div>
+        <div class="bsc-graduate" *ngIf="!bscGraduate" style="margin-top: 25px;">
+          <span class="label">Admission Date</span>
+          <div style="margin-top: 15px; margin-bottom: 15px;">
+            <p-calendar [(ngModel)]="bscAdmissionDate" [showIcon]="true" dateFormat="d/m/yy" [style]="{ width: '100%'}"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="msc">
+      <span class="label">Did you do your MSC?</span>
+      <div class="button">
+        <p-toggleButton onLabel="Yes" offLabel="No" [(ngModel)]="msc" [style]="{ width: '100%'}"></p-toggleButton>
+        <div class="help-label" style="margin-bottom: 15px;">i. click here if you're doing your msc, else leave it as it is</div>
+      </div>
+      <div class="msc-status" *ngIf="msc" style="margin-top: 25px;">
+        <span class="label">Are you a student of AIUB?</span>
+        <div class="button" style="margin-bottom: 15px;">
+          <p-toggleButton onLabel="Yes" offLabel="No" [(ngModel)]="mscAIUB" [style]="{ width: '100%'}" (onChange)="onMscAIUBChange()"></p-toggleButton>
+          <div class="help-label">i. click here if you're a student of aiub, else leave it as it is</div>
+        </div>
+        <div class="msc-info-non-aiub" *ngIf="!mscAIUB">
+          <div class="msc-info-aiub" *ngIf="mscAIUB">
+            <div class="aiub-id" style="margin-top: 25px;">
+              <span class="label">AIUB ID</span>
+              <input type="text" placeholder="e.g. 21-44589-1" pInputText class="input" [(ngModel)]="aiubIdMsc" #aiubIdMscModel="ngModel" required/>
+              <div class="error-message" *ngIf="aiubIdMscModel.invalid && (aiubIdMscModel.dirty || aiubIdMscModel.touched)">
+                AIUB ID field is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="university" style="margin-top: 25px;">
+          <span class="label">University</span>
+          <input type="text" placeholder="e.g. American International University-Bangladesh" pInputText class="input" [(ngModel)]="universityMsc" [readonly]="mscAIUB" #universityMscModel="ngModel" required/>
+          <div class="error-message" *ngIf="universityMscModel.invalid && (universityMscModel.dirty || universityMscModel.touched)">
+            University field is required
+          </div>
+        </div>
+        <div class="cgpa">
+          <span class="label">CGPA</span>
+          <input type="text" placeholder="e.g. 3.84" pInputText class="input" [(ngModel)]="cgpaMsc" #cgpaMscModel="ngModel" required/>
+          <div class="error-message" *ngIf="cgpaMscModel.invalid && (cgpaMscModel.dirty || cgpaMscModel.touched)">
+            CGPA field is required
+          </div>
+        </div>
+        <span class="label">Did you graduate?</span>
+        <div class="button">
+          <p-toggleButton onLabel="Yes" offLabel="No" [(ngModel)]="mscGraduate" [style]="{ width: '100%'}"></p-toggleButton>
+          <div class="help-label">i. click here if you have graduated, else leave it as it is</div>
+        </div>
+        <div class="msc-graduate" *ngIf="mscGraduate" style="margin-top: 25px;">
+          <span class="label">Graduation Date</span>
+          <div style="margin-top: 15px; margin-bottom: 15px;">
+            <p-calendar [(ngModel)]="mscGraduationDate" [showIcon]="true" dateFormat="d/m/yy" [style]="{ width: '100%'}"></p-calendar>
+          </div>
+        </div>
+        <div class="msc-graduate" *ngIf="!mscGraduate" style="margin-top: 25px;">
+          <span class="label">Admission Date</span>
+          <div style="margin-top: 15px; margin-bottom: 15px;">
+            <p-calendar [(ngModel)]="mscAdmissionDate" [showIcon]="true" dateFormat="d/m/yy" [style]="{ width: '100%'}"></p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="job.negotiable === 'true'" class="expected-salary">
+      <span class="label">Expected Salary</span>
+      <div>
+        <p-inputNumber [(ngModel)]="expectedSalary" [step]="1000" [min]="0" [showButtons]="true" inputId="stacked" mode="currency" currency="BDT"  [style]="{ marginTop: '15px'}"> </p-inputNumber>
+      </div>
+    </div>
+    <div class="name" style="margin-top: 35px;">
+      <div class="skills" style="width: 100%;">
+        <span class="label">Skills</span>
+        <div class="skills-textbox" style="margin-top: 15px; margin-bottom: 15px;">
+          <p-chips [(ngModel)]="skills" separator="," placeholder="e.g. .NET, Angular JS..." [style]="{width: '100%'}"></p-chips>
+        </div>
+      </div>
+      <div class="lastname">
+        <div style="display: flex; flex-direction: column;">
+          <span class="label">Upload Your CV</span>
+          <div class="cv" style="margin-top: 15px; margin-bottom: 15px;">
+            <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [auto]="true" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
+          </div>
+          <span class="label">Upload Your Cover Letter</span>
+          <div class="cv" style="margin-top: 15px; margin-bottom: 15px;">
+            <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [auto]="true" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+        <div style="margin-bottom: 20px;">
+            <p-button label="Submit" styleClass="p-button-raised" pRipple [style]="{width: '100%'}" (onClick)="onSubmit()"></p-button>
+        </div>
+        <div>
+            <p-button label="Cancel" styleClass="p-button-raised p-button-danger" [style]="{width: '100%'}" (onClick)="onCancel()"></p-button>
+        </div>
+    </div>
+</div>
+</body>
+<p-toast></p-toast>

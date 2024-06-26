@@ -2,22 +2,22 @@
 {
     public class CreateOpeningDTO
     {
-        public string? jobTitle { get; set; }
-        public string? designation { get; set; }
-        public string? jobType { get; set; }
-        public string? workHourStart { get; set; }
-        public string? workHourEnd { get; set; }
-        public string? salary { get; set; }
-        public string? negotiable { get; set; }
-        public string? description { get; set; }
-        public string? phone { get; set; }
-        public string? email { get; set; }
-        public string? location { get; set; }
-        public string? applicants { get; set; }
-        public string? maxApplicants { get; set; }
-        public string? postedOn { get; set; }
-        public string? deadline { get; set; }
-        public string? status { get; set; }
+        public string? JobTitle { get; set; }
+        public string? Designation { get; set; }
+        public string? JobType { get; set; }
+        public string? WorkHourStart { get; set; }
+        public string? WorkHourEnd { get; set; }
+        public string? Salary { get; set; }
+        public string? Negotiable { get; set; }
+        public string? Description { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Location { get; set; }
+        public string? Applicants { get; set; }
+        public string? MaxApplicants { get; set; }
+        public string? PostedOn { get; set; }
+        public string? Deadline { get; set; }
+        public string? Status { get; set; }
         public List<string>? Requirements { get; set; }
         public List<string>? Responsibilities { get; set; }
 

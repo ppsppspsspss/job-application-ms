@@ -1,0 +1,86 @@
+<app-header></app-header>
+<app-navbar (back)="onBack()"></app-navbar>
+<body>
+  <div class="user" *ngIf="role == 'User'">
+      <div *ngFor="let job of jobs">
+      <p-card header="{{job.jobTitle}}" subheader="Salary: {{job.salary}}" [style]="{ width: '380px', height: '630px'}">
+          <ng-template pTemplate="header">
+              <div class="image"><img alt="Card" src="../../../assets/images/aiub_logo_92x92.png" class="logo" /></div>
+          </ng-template>
+          <p>
+              Application Deadline: {{job.deadline}}
+          </p>
+          <p>
+              {{truncateDescription(job.description)}}
+          </p>
+          <p>
+              Vacancy: {{ getRemainingVacancies(job) }}/{{ job.maxApplicants }}
+          </p>
+          <ng-template pTemplate="footer">
+            <div style="display: flex; justify-content: space-between;">
+              <p-button label="View Details" (click)="showDialog(job.jobID)" [style]="{ 'width': '160px'}"></p-button>
+              <p-button label="Apply" styleClass="p-button-success" [style]="{ 'width': '160px'}" (click)="apply(job.jobID)"></p-button>
+            </div> 
+          </ng-template>
+      </p-card>
+      </div>
+      <p-dialog header="{{loadJob.jobTitle}}" [(visible)]="visible" [style]="{width: '75vw'}">
+          <p>
+            {{loadJob.postedOn}}
+          </p>
+          <p>
+            {{loadJob.description}}
+          </p>
+          <p>
+            <b>Requirements: </b>
+            <br>
+            <ul>
+              <li *ngFor="let requirement of jobRequirements">{{requirement.requirement}}</li>
+            </ul>
+          <p>
+            <b>Responsibilities: </b>
+            <br>
+            <ul>
+              <li *ngFor="let responsibility of jobResponsibilities">{{responsibility.responsibility}}</li>
+            </ul>
+          <br>
+          <p>
+            <b>Designation: </b>{{loadJob.designation}}
+          </p>
+          <p>
+            <b>Job Type: </b>{{loadJob.jobType}}
+          </p>
+          <p>
+            <b>Work Hour:</b> From {{loadJob.workHourStart}} to {{loadJob.workHourEnd}}
+          </p>
+          <p>
+            <b>Salary:</b> {{loadJob.salary}}
+          </p>
+          <p>
+            <b>Negotiable:</b> {{loadJob.negotiable}}
+          </p>
+          <p>
+            <b>Vacancy:</b> {{getRemainingVacancies(loadJob)}}
+          </p>
+          <p>
+            <b>Deadline:</b> {{loadJob.deadline}}
+          </p>
+          <p>
+            {{loadJob.phone}} <br>
+            {{loadJob.email}} <br>
+            {{loadJob.location}}
+          </p>
+          <br><br>
+          <div>
+            <p-button label="Apply" styleClass="p-button-success" [style]="{ 'width': '160px'}" (click)="apply(loadJob.jobID)"></p-button>
+          </div>
+      </p-dialog>
+  </div>
+  <div class="user" *ngIf="role == 'Admin'">
+  <div class="job-list">
+    <app-job-list></app-job-list>
+  </div>
+  
+  </div>
+</body>
+<p-toast></p-toast>

@@ -1,0 +1,119 @@
+<app-header></app-header>
+<app-navbar (back)="onBack()"></app-navbar>
+<body>
+  <div class="application-form">
+    <div class="title">
+      <span class="label">Opening Title</span>
+      <input type="text" placeholder="e.g. Student Assistant Required For AIUB Software Development Department" pInputText class="input" [(ngModel)]="jobTitle" #jobTitleModel="ngModel" required/>
+      <div class="error-message" *ngIf="jobTitleModel.invalid && (jobTitleModel.dirty || jobTitleModel.touched)">
+        Opening title field is required
+      </div>
+    </div>
+    <div class="designation">
+      <span class="label">Designation</span>
+      <input type="text" placeholder="e.g. Student Assistant" pInputText class="input" [(ngModel)]="designation" #designationModel="ngModel" required/>
+      <div class="error-message" *ngIf="designationModel.invalid && (designationModel.dirty || designationModel.touched)">
+        Designation field is required
+      </div>
+    </div>
+    <div class="type" style="margin-top: 5px;">
+      <span class="label">Job Type</span>
+      <div class="type">
+        <p-radioButton name="type" value="Part Time" [(ngModel)]="type" inputId="type1"></p-radioButton>
+        <label for="type1" class="ml-2" style="margin-left: 10px; margin-right: 20px;">Part Time</label>
+        <p-radioButton name="type" value="Full Time" [(ngModel)]="type" inputId="type2"></p-radioButton>
+        <label for="type2" class="ml-2" style="margin-left: 10px;">Full Time</label>
+      </div>
+    </div>
+    <div class="name" style="margin-top: 35px;">
+      <div class="work-hour-start" style="width: 100%;">
+        <span class="label">Work Hour Start</span>
+        <div class="work-hour-dtp" style="margin-top: 15px; margin-bottom: 10px;">
+            <p-calendar [(ngModel)]="workHourStart" [showTime]="true" [timeOnly]="true" hourFormat="12"></p-calendar>
+        </div>
+      </div>
+      <div class="lastname">
+        <span class="label">Work Hour End</span>
+        <div class="work-hour-dtp" style="margin-top: 15px; margin-bottom: 10px;">
+            <p-calendar [(ngModel)]="workHourEnd" [showTime]="true" [timeOnly]="true" hourFormat="12"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="salary">
+      <span class="label">Salary</span>
+      <div>
+        <p-inputNumber [(ngModel)]="salary" [step]="1000" [min]="0" [showButtons]="true" inputId="stacked" mode="currency" currency="BDT"  [style]="{ marginTop: '15px'}"> </p-inputNumber>
+      </div>
+      <div style="margin-top: 15px; margin-bottom: 35px;">
+        <p-checkbox [(ngModel)]="negotiable" [binary]="true" inputId="binary"></p-checkbox>
+        <span class="label" style="margin-left: 15px;">Negotiable</span>
+      </div>
+    </div>
+    <div class="description">
+      <span class="label">Description</span>
+      <textarea rows="5" cols="81" placeholder="e.g. Software Development Department is looking for qualified & efficient students for the position of Student Assistant." pInputTextarea [autoResize]="true" class="input" [(ngModel)]="description" #descriptionModel="ngModel" required></textarea>
+      <div class="error-message" *ngIf="descriptionModel.invalid && (descriptionModel.dirty || descriptionModel.touched)">
+        Description field is required
+      </div>
+    </div>
+    <div class="requirements" style="width: 100%;">
+      <span class="label">Requirements</span>
+      <div class="requirements-textbox" style="margin-top: 15px; margin-bottom: 30px;">
+        <p-chips [(ngModel)]="requirements" separator="," placeholder="e.g. .NET, Angular JS..." class="full-width-chips"></p-chips>
+      </div>
+    </div>
+    <div class="responsibilities" style="width: 100%;">
+      <span class="label">Responsibilities</span>
+      <div class="requirements-textbox" style="margin-top: 15px; margin-bottom: 30px;">
+        <p-chips [(ngModel)]="responsibilities" separator="," placeholder="e.g. .NET, Angular JS..." class="full-width-chips"></p-chips>
+      </div>
+    </div>
+    <div class="phone">
+      <span class="label">Phone</span>
+      <input type="text" placeholder="e.g. 01402246680" [readOnly]="true" pInputText class="input" [(ngModel)]="phone" #phoneModel="ngModel" required/>
+      <div class="error-message" *ngIf="phoneModel.invalid && (phoneModel.dirty || phoneModel.touched)">
+        Phone number field is required
+      </div>
+    </div>
+    <div class="email">
+      <span class="label">Email</span>
+      <input type="text" placeholder="e.g. rianulamin.r@gmail.com" [readOnly]="true" pInputText class="input" [(ngModel)]="email" #emailModel="ngModel" required/>
+      <div class="error-message" *ngIf="emailModel.invalid && (emailModel.dirty || emailModel.touched)">
+        Email address field is required
+      </div>
+    </div>
+    <div class="location">
+      <span class="label">Location</span>
+      <textarea rows="5" cols="81" placeholder="e.g. 290/1 A Khilgaon Railgate, Dhaka 1219." [readOnly]="true" pInputTextarea [autoResize]="true" class="input" [(ngModel)]="location" #locationModel="ngModel" required></textarea>
+      <div class="error-message" *ngIf="locationModel.invalid && (locationModel.dirty || locationModel.touched)">
+        Location field is required
+      </div>
+    </div>
+    <div class="max-applicants">
+      <span class="label">Max Applicants</span>
+      <input type="text" placeholder="e.g. 50" pInputText class="input" [(ngModel)]="maxApplicants" #maxApplicantsModel="ngModel" required/>
+      <div class="error-message" *ngIf="maxApplicantsModel.invalid && (maxApplicantsModel.dirty || maxApplicantsModel.touched)">
+        Max applicants field is required
+      </div>
+    </div>
+    <div class="deadline" style="margin-top: 25px;">
+      <span class="label">Opening Deadline</span>
+      <div style="margin-top: 15px; margin-bottom: 15px;">
+        <p-calendar [(ngModel)]="deadline" [showIcon]="true" dateFormat="d/m/yy" [style]="{ width: '100%'}"></p-calendar>
+      </div>
+    </div>
+    <div style="margin-top: 15px; margin-bottom: 35px;">
+      <p-checkbox [(ngModel)]="status" [binary]="true" inputId="binary"></p-checkbox>
+      <span class="label" style="margin-left: 15px;">Accepting Responses</span>
+    </div>
+    <div class="buttons" style="margin-top: 50px;">
+        <div style="margin-bottom: 20px;">
+            <p-button label="Submit" styleClass="p-button-raised" pRipple [style]="{width: '100%'}" (onClick)="onSubmit()"></p-button>
+        </div>
+        <div>
+            <p-button label="Cancel" styleClass="p-button-raised p-button-danger" [style]="{width: '100%'}" (onClick)="onCancel()"></p-button>
+        </div>
+    </div>
+</div>
+</body>
+<p-toast></p-toast>

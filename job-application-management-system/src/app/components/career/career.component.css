@@ -1,0 +1,23 @@
+.container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #dddddd;
+}
+
+.label{
+    padding: 10px 80px 10px 80px;
+    margin: 0;
+    font: large sans-serif;
+}
+
+.sign-in-label{
+    font: medium sans-serif;
+}
+
+.sign-in{
+    position: fixed;
+    top: 30px;
+    right: 30px;
+}

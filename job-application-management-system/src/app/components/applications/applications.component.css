@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    flex: 1; 
+    background-color: #EFEFEF;
+    height: 100%;
+    padding: 40px;
+}
+  
+.users {
+    width: 35rem; 
+    margin-right: 20px;
+}
+  
+.profile {
+    flex: 1; 
+}
