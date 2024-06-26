@@ -32,6 +32,7 @@ export class OpeningFormComponent {
   negotiable: boolean = false;
   status: boolean = true;
   deadline: Date | null = null;
+  applicants: number | null = null;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -61,6 +62,7 @@ export class OpeningFormComponent {
           this.maxApplicants = Number.parseInt(job.maxApplicants);
           this.deadline = this.parseDate(job.deadline);
           this.status = job.status === 'true';
+          this.applicants = Number.parseInt(job.applicants);
   
           this.loadJobRequirements(job.jobID);
           this.loadJobResponsibilities(job.jobID);
@@ -141,10 +143,16 @@ export class OpeningFormComponent {
     this.jobService.createOpening(opening).subscribe(
       (response: any) => {
         console.log(response);
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New opening created successfully' });
-        setTimeout(() => {
-          this.router.navigate(['/home']);
-        }, 2000);
+        if (response.isError && response.messages) {
+          response.messages.forEach((message: string) => {
+            this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: message });
+          });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'New opening created successfully' });
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 2000);
+        }
       },
       (error: any) => {
         console.log(error);
@@ -152,6 +160,7 @@ export class OpeningFormComponent {
       }
     );
   }
+  
 
   loadJobRequirements(jobID: number): void {
     this.jobService.getJobRequirements(jobID).subscribe(
@@ -189,19 +198,60 @@ export class OpeningFormComponent {
           }, 2000);
         } 
         else {
-          console.log(response.messages);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update opening' });
+          console.log(response.messages); 
+          response.messages.forEach((message: string) => {
+            this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: message });
+          });
         }
       },
       (error) => {
-        console.log(error);
+        console.log(error); 
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to update opening' });
       }
     );
   }
 
   validateForm(): boolean {
-    return true; 
+
+    let flag = true
+    
+    if (!this.jobTitle || this.jobTitle.trim() === '') {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Opening title cannot be empty' });
+      flag = false;
+    }
+
+    if (!this.designation || this.designation.trim() === '') {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Designation cannot be empty' });
+      flag = false;
+    }
+
+    if (this.workHourStart >= this.workHourEnd) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Work hour start cannot be greater than work hour end' });
+      flag = false;
+    }
+
+    if (!this.description || this.description.trim() === '') {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Description cannot be empty' });
+      flag = false;
+    }
+
+    if (this.maxApplicants === null || this.maxApplicants <= 0) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Max applicants must be greater than 0' });
+      flag = false;
+    }
+
+    if (this.maxApplicants !== null && this.applicants !== null && this.maxApplicants < this.applicants) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: `Max applicants cannot be less than the current number of applicants (${this.applicants})` });
+      flag = false;
+    }
+
+    if (!this.deadline || new Date(this.deadline) < new Date()) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Opening deadline cannot be empty or a past date' });
+      flag = false;
+    }
+
+    return flag;
+
   }
 
   formatTime(date: Date): string {

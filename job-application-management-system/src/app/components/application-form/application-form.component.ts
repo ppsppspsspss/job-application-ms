@@ -89,16 +89,15 @@ export class ApplicationFormComponent {
   
       this.jobApplicationService.jobApplication(jobApplication).subscribe(
         response => {
-          console.log(response)
           if (!response.isError) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Application submitted successfully' });
             setTimeout(() => {
               this.router.navigate(['/home']);
-            }, 2000); 
-          } 
-          else {
-            console.log(response.messages); 
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to submit application' });
+            }, 2000);
+          } else {
+            response.messages.forEach((message: string) => {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+            });
           }
         },
         error => {
@@ -107,28 +106,154 @@ export class ApplicationFormComponent {
         }
       );
   
-    } else {
+    } 
+    else {
       this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Could not submit application' });
       console.log('Form is invalid');
     }
   }  
 
   validateForm(): boolean {
-    
-    return true;
+
+    let isValid = true;
+    const containsNumberRegex = /\d/;
+    const cgpaRegex = /^([0-3](\.\d{1,2})?|4(\.00?)?)$/;
+  
+    if (!this.firstName) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'First name field is required' });
+      isValid = false;
+    }
+    else if (containsNumberRegex.test(this.firstName)) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'First name is invalid' });
+      isValid = false;
+    }
+
+    if (!this.lastName) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Last name field is required' });
+      isValid = false;
+    }
+    else if (containsNumberRegex.test(this.lastName)) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Last name is invalid' });
+      isValid = false;
+    }
+
+    if (!this.fathersName) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Father\'s name field is required' });
+      isValid = false;
+    }
+    else if (containsNumberRegex.test(this.fathersName)) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Father\'s name is invalid' });
+      isValid = false;
+    }
+
+    if (!this.mothersName) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Mother\'s name field is required' });
+      isValid = false;
+    }
+    else if (containsNumberRegex.test(this.mothersName)) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Mother\'s name is invalid' });
+      isValid = false;
+    }
+
+    if (!this.phone) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Phone number field is required' });
+      isValid = false;
+    } 
+    else if (!/^(01)\d{9}$/.test(this.phone)) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Invalid phone number' });
+      isValid = false;
+    }
+    if (!this.email) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Email address field is required' });
+      isValid = false;
+    } 
+    else if (!this.isValidEmailFormat(this.email)) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Invalid email' });
+      isValid = false;
+    } 
+    if (!this.currentAddress) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Current address field is required' });
+      isValid = false;
+    }
+    if (!this.permanentAddress) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Permanent field is required' });
+      isValid = false;
+    }
+  
+    if (this.bsc) {
+      if (this.bscAIUB && (!this.aiubIdBsc || this.aiubIdBsc.trim() === '')) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'AIUB ID field is required' });
+        isValid = false;
+      }
+      if (!this.universityBsc) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'University field is required' });
+        isValid = false;
+      }
+      if (!this.cgpaBsc) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'CGPA field is required' });
+        isValid = false;
+      }
+      else if (!cgpaRegex.test(this.cgpaBsc)) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Invalid CGPA' });
+        isValid = false;
+      }
+
+      if (this.bscGraduate && !this.bscGraduationDate) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Graduation date field is required' });
+        isValid = false;
+      }
+      if (!this.bscGraduate && !this.bscAdmissionDate) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Admission date field is required' });
+        isValid = false;
+      }
+    } 
+    else {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Can not apply without BSc' });
+      isValid = false;
+    }
+  
+    if (this.msc) {
+      if (this.mscAIUB && (!this.aiubIdMsc || this.aiubIdMsc.trim() === '')) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'AIUB ID field is required' });
+        isValid = false;
+      }
+      if (!this.universityMsc) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'University field is required' });
+        isValid = false;
+      }
+      if (!this.cgpaMsc) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'CGPA field is required' });
+        isValid = false;
+      }
+      else if (!cgpaRegex.test(this.cgpaMsc)) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Invalid CGPA.' });
+        isValid = false;
+      }
+
+      if (this.mscGraduate && !this.mscGraduationDate) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Graduation date field is required' });
+        isValid = false;
+      }
+      if (!this.mscGraduate && !this.mscAdmissionDate) {
+        this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Admission date field is required' });
+        isValid = false;
+      }
+    } 
+  
+    return isValid;
   }
-
-
+  
+  isValidEmailFormat(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+  
   onCancel(){
     this.router.navigate(['/home']);
   }
 
   onSameAsCurrentAddressChange() {
-    if (this.sameAsCurrentAddress) {
-      this.permanentAddress = this.currentAddress;
-    } else {
-      this.permanentAddress = '';
-    }
+    if (this.sameAsCurrentAddress) this.permanentAddress = this.currentAddress;
+    else this.permanentAddress = '';
   }
 
   setUniversity() {
@@ -168,10 +293,9 @@ export class ApplicationFormComponent {
         const month = date.getMonth() + 1; 
         const year = date.getFullYear();
         return `${day}/${month}/${year}`;
-    } else {
-        return null;
-    }
-}
+    } 
+    else return null;
+  }
 
   onBack(): void {
     this.router.navigate(['/home']);  
