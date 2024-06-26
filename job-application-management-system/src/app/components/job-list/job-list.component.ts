@@ -159,7 +159,11 @@ export class JobListComponent {
     this.jobService.deleteJob(jobID).subscribe(
       (response) => {
         if (response.isError) {
-          console.error(response.messages.join(', '));
+          const errorMessage = response.messages.join(', ');
+          console.error(errorMessage);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
+        } else {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job deleted successfully' });
         }
         this.loadJobs();
       },
@@ -169,5 +173,6 @@ export class JobListComponent {
       }
     );
   }
+  
 
 }

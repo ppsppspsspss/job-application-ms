@@ -204,6 +204,9 @@ namespace job_application_management_system_api.Repositories.Services
 
             if (job != null)
             {
+
+                if (Convert.ToInt32(job.Applicants) > 0) return new Result<string>(true, new List<string> { $"Job cannot be deleted as it has {job.Applicants} applicants." }, null);
+
                 var jobRequirements = _db.JobRequirement.Where(requirement => requirement.JobID == jobID).ToList();
                 var jobResponsibilities = _db.JobResponsibility.Where(responsibility => responsibility.JobID == jobID).ToList();
 
@@ -222,11 +225,11 @@ namespace job_application_management_system_api.Repositories.Services
 
                 return new Result<string>(false, new List<string> { "Job deleted successfully." }, null);
             }
-            else
-            {
-                return new Result<string>(true, new List<string> { "Job not found." }, null);
-            }
+
+            else return new Result<string>(true, new List<string> { "Job not found." }, null);
+
         }
+
 
         private DateTime? ConvertToDateTime(string? dateString)
         {
