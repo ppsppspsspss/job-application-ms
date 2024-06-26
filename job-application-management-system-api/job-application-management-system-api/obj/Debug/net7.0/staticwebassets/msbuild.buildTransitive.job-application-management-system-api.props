@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\job-application-management-system-api.props" />
-</Project>
