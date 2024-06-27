@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JobApplication } from '../types/job-application';
@@ -13,7 +13,7 @@ export class JobApplicationService {
 
   baseUrl = "http://localhost:5171/api/job-application";
 
-  jobApplication(jobApplication: any): Observable<Result<string>> {
+  jobApplication(jobApplication: FormData): Observable<Result<string>> {
     return this.http.post<Result<string>>(`${this.baseUrl}/application`, jobApplication);
   }
 

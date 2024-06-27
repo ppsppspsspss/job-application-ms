@@ -22,7 +22,7 @@ namespace job_application_management_system_api.Controllers
         }
 
         [HttpPost("application")]
-        public Result<string> Application([FromBody] JobApplicationDTO jobApplicationDTO)
+        public Result<string> Application([FromForm] JobApplicationDTO jobApplicationDTO)
         {
             return _jobApplicationService.Application(jobApplicationDTO);
         }

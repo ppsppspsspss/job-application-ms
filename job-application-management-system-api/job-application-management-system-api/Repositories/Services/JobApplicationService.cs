@@ -91,8 +91,8 @@ namespace job_application_management_system_api.Repositories.Services
                     MscCGPA = jobApplicationDTO.MscCGPA,
                     MscGraduate = jobApplicationDTO.MscGraduate,
                     MscGraduationDate = jobApplicationDTO.MscGraduationDate,
-                    Cv = jobApplicationDTO.Cv,
-                    CoverLetter = jobApplicationDTO.CoverLetter
+                    Cv = SaveFile(jobApplicationDTO.Cv),
+                    CoverLetter = SaveFile(jobApplicationDTO.CoverLetter)
                 };
 
                 _db.JobApplication.Add(_jobApplication);
@@ -156,7 +156,8 @@ namespace job_application_management_system_api.Repositories.Services
                         MscCGPA = jobApplication.MscCGPA,
                         MscGraduate = jobApplication.MscGraduate,
                         MscGraduationDate = jobApplication.MscGraduationDate,
-                        Cv = jobApplication.Cv,
+                        Cv = RetrieveFile(jobApplication.Cv), 
+                        CoverLetter = RetrieveFile(jobApplication.CoverLetter),
                         Skills = _db.UserSkill
                             .Where(skill => skill.JobApplicationID == jobApplication.JobApplicationID && skill.Skill != null)
                             .Select(skill => skill.Skill!)
@@ -213,7 +214,8 @@ namespace job_application_management_system_api.Repositories.Services
                     MscCGPA = application.MscCGPA,
                     MscGraduate = application.MscGraduate,
                     MscGraduationDate = application.MscGraduationDate,
-                    Cv = application.Cv,
+                    Cv = RetrieveFile(application.Cv),
+                    CoverLetter = RetrieveFile(application.CoverLetter),
                     Skills = _db.UserSkill
                         .Where(skill => skill.JobApplicationID == application.JobApplicationID)
                         .Select(skill => skill.Skill)
@@ -269,6 +271,52 @@ namespace job_application_management_system_api.Repositories.Services
             catch
             {
                 return false;
+            }
+        }
+
+        private string? SaveFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0) return null;
+
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files");
+
+            if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return fileName; 
+        }
+
+        private static IFormFile? RetrieveFile(string fileName)
+        {
+            try
+            {
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files");
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                if (File.Exists(filePath))
+                {
+                    var fileBytes = File.ReadAllBytes(filePath);
+                    var fileMemoryStream = new MemoryStream(fileBytes);
+                    var formFile = new FormFile(fileMemoryStream, 0, fileBytes.Length, "file", fileName);
+
+                    return formFile;
+                }
+                else
+                {
+                    throw new FileNotFoundException("The file does not exist.", filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving file: {ex.Message}");
+                return null; 
             }
         }
 

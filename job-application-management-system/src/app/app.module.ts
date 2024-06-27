@@ -70,7 +70,7 @@ import { OpeningFormComponent } from './components/opening-form/opening-form.com
     ToastModule,
     TableModule,
     RadioButtonModule,
-    InputNumberModule
+    InputNumberModule,
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

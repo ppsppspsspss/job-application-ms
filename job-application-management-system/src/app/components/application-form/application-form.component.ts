@@ -43,6 +43,8 @@ export class ApplicationFormComponent {
   aiubIdMsc: string = '';
   mscGraduationDate: string = '';
   expectedSalary: number = 0.00;
+  cvFile: File | null = null;
+  coverLetterFile: File | null = null;
 
   job: any = {}
 
@@ -56,37 +58,39 @@ export class ApplicationFormComponent {
   }
 
   onSubmit() {
+
     if (this.validateForm()) {
-      const jobApplication = {
-        jobID: this.jobID,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        fathersName: this.fathersName,
-        mothersName: this.mothersName,
-        phone: this.phone,
-        email: this.email,
-        currentAddress: this.currentAddress,
-        permanentAddress: this.permanentAddress,
-        bscStatus: this.bsc ? "true" : "false",
-        bscAdmissionDate: this.bsc ? this.formatDate(this.bscAdmissionDate) : null,
-        bscAIUB: this.bscAIUB ? "true" : "false",
-        bscUniversity: this.universityBsc,
-        bscCGPA: this.bscAIUB ? null : this.cgpaBsc,
-        bscAIUBID: this.bscAIUB ? this.aiubIdBsc : null,
-        bscGraduate: this.bscGraduate ? "true" : "false",
-        bscGraduationDate: this.bscGraduate ? this.formatDate(this.bscGraduationDate) : null,
-        mscStatus: this.msc ? "true" : "false",
-        mscAdmissionDate: this.msc ? this.formatDate(this.mscAdmissionDate) : null,
-        mscAIUB: this.mscAIUB ? "true" : "false",
-        mscUniversity: this.universityMsc,
-        mscCGPA: this.msc ? null : this.cgpaMsc,
-        mscAIUBID: this.mscAIUB ? this.aiubIdMsc : null,
-        mscGraduate: this.mscGraduate ? "true" : "false",
-        mscGraduationDate: this.mscGraduate ? this.formatDate(this.mscGraduationDate) : null,
-        cv: null,
-        coverLetter: null,
-        skills: this.skills
-      };
+
+      const jobApplication = new FormData();
+
+      if (this.jobID !== null && this.jobID !== undefined) jobApplication.append('jobID', this.jobID.toString());
+      jobApplication.append('firstName', this.firstName);
+      jobApplication.append('lastName', this.lastName);
+      jobApplication.append('fathersName', this.fathersName);
+      jobApplication.append('mothersName', this.mothersName);
+      jobApplication.append('phone', this.phone);
+      jobApplication.append('email', this.email);
+      jobApplication.append('currentAddress', this.currentAddress);
+      jobApplication.append('permanentAddress', this.permanentAddress);
+      jobApplication.append('bscStatus', this.bsc ? "true" : "false");
+      jobApplication.append('bscAdmissionDate', this.bsc ? this.formatDate(this.bscAdmissionDate) || '' : '');
+      jobApplication.append('bscAIUB', this.bscAIUB ? "true" : "false");
+      jobApplication.append('bscUniversity', this.universityBsc);
+      jobApplication.append('bscCGPA', this.bscAIUB ? '' : this.cgpaBsc.toString());
+      jobApplication.append('bscAIUBID', this.bscAIUB ? this.aiubIdBsc : '');
+      jobApplication.append('bscGraduate', this.bscGraduate ? "true" : "false");
+      jobApplication.append('bscGraduationDate', this.bscGraduate ? this.formatDate(this.bscGraduationDate) || '' : '');
+      jobApplication.append('mscStatus', this.msc ? "true" : "false");
+      jobApplication.append('mscAdmissionDate', this.msc ? this.formatDate(this.mscAdmissionDate) || '' : '');
+      jobApplication.append('mscAIUB', this.mscAIUB ? "true" : "false");
+      jobApplication.append('mscUniversity', this.universityMsc);
+      jobApplication.append('mscCGPA', this.msc ? '' : this.cgpaMsc.toString());
+      jobApplication.append('mscAIUBID', this.mscAIUB ? this.aiubIdMsc : '');
+      jobApplication.append('mscGraduate', this.mscGraduate ? "true" : "false");
+      jobApplication.append('mscGraduationDate', this.mscGraduate ? this.formatDate(this.mscGraduationDate) || '' : '');
+      if (this.cvFile) jobApplication.append('cv', this.cvFile, this.cvFile.name);
+      if (this.coverLetterFile) jobApplication.append('coverLetter', this.coverLetterFile, this.coverLetterFile.name);
+      jobApplication.append('skills', JSON.stringify(this.skills));
   
       this.jobApplicationService.jobApplication(jobApplication).subscribe(
         response => {
@@ -106,13 +110,20 @@ export class ApplicationFormComponent {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to submit application' });
         }
       );
-  
     } 
     else {
       this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Could not submit application' });
       console.log('Form is invalid');
     }
   }  
+
+  onCVUpload(event: any) {
+    this.cvFile = event.files[0];
+  }
+
+  onCoverLetterUpload(event: any): void {
+    this.coverLetterFile = event.files[0];
+  }
 
   validateForm(): boolean {
 

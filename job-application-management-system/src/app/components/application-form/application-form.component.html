@@ -193,11 +193,11 @@
         <div style="display: flex; flex-direction: column;">
           <span class="label">Upload Your CV</span>
           <div class="cv" style="margin-top: 15px; margin-bottom: 15px;">
-            <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [auto]="true" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
+            <p-fileUpload mode="basic" (customUpload)="true" name="cv[]" (onSelect)="onCVUpload($event)" accept=".pdf" [auto]="false" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
           </div>
           <span class="label">Upload Your Cover Letter</span>
           <div class="cv" style="margin-top: 15px; margin-bottom: 15px;">
-            <p-fileUpload mode="basic" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" [auto]="true" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
+            <p-fileUpload mode="basic" (customUpload)="true" name="coverLetter[]" (onSelect)="onCoverLetterUpload($event)" accept=".pdf" [auto]="false" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
           </div>
         </div>
       </div>

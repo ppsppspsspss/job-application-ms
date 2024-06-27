@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\300387a8-3747-4c5a-b148-440b13173ce7.pdf",
+      "PackagePath": "staticwebassets\\Files\\300387a8-3747-4c5a-b148-440b13173ce7.pdf"
+    },
+    {
+      "Id": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\87fab290-a4e2-40c2-a912-aaa686dc12b4.pdf",
+      "PackagePath": "staticwebassets\\Files\\87fab290-a4e2-40c2-a912-aaa686dc12b4.pdf"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.job-application-management-system-api.props",
+      "PackagePath": "build\\job-application-management-system-api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.job-application-management-system-api.props",
+      "PackagePath": "buildMultiTargeting\\job-application-management-system-api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.job-application-management-system-api.props",
+      "PackagePath": "buildTransitive\\job-application-management-system-api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.job-application-management-system-api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
