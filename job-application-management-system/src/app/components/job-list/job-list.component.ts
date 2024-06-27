@@ -31,7 +31,7 @@ export class JobListComponent {
   }
 
   loadJobs(): void {
-    this.jobService.getAllJobs().subscribe(
+    this.jobService.getAllJobs(true).subscribe(
       (result: Result<Job[]>) => {
         if (!result.isError) {
           this.jobs = result.data || []; 

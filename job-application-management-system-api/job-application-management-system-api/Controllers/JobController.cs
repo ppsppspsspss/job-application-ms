@@ -31,11 +31,10 @@ public class JobController : ControllerBase
         return _jobService.UpdateJob(jobID, updateOpeningDTO);
     }
 
-    [AllowAnonymous]
-    [HttpGet("get-all-jobs")]
-    public Result<List<Job>> GetAllJobs()
+    [HttpGet("get-all-jobs/{showAll}")]
+    public Result<List<Job>> GetAllJobs(bool showAll)
     {
-        return _jobService.GetAllJobs();
+        return _jobService.GetAllJobs(showAll);
     }
 
     [HttpPatch("update-status/{jobID}")]
@@ -44,21 +43,18 @@ public class JobController : ControllerBase
         return _jobService.UpdateStatus(jobID);
     }
 
-    [AllowAnonymous]
     [HttpGet("get-job/{jobID}")]
     public Result<Job> GetJob(int jobID)
     {
         return _jobService.GetJob(jobID);
     }
 
-    [AllowAnonymous]
     [HttpGet("get-job-requirements/{jobID}")]
     public Result<List<JobRequirement>> GetJobRequirements(int jobID)
     {
         return _jobService.GetJobRequirements(jobID);
     }
 
-    [AllowAnonymous]
     [HttpGet("get-job-responsibilities/{jobID}")]
     public Result<List<JobResponsibility>> GetJobResponsibilities(int jobID)
     {

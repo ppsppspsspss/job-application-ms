@@ -21,7 +21,6 @@ namespace job_application_management_system_api.Controllers
             _jobApplicationService = jobApplicationService;
         }
 
-        [AllowAnonymous]
         [HttpPost("application")]
         public Result<string> Application([FromBody] JobApplicationDTO jobApplicationDTO)
         {

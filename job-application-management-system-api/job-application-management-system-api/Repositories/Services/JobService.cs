@@ -105,32 +105,34 @@ namespace job_application_management_system_api.Repositories.Services
         }
 
 
-        public Result<List<Job>> GetAllJobs()
+        public Result<List<Job>> GetAllJobs(bool showAll)
         {
             try
             {
                 var currentDate = DateTime.Today;
-                var jobs = _db.Job
-                    .Where(job => job.Status == "true" && Convert.ToInt32(job.Applicants) < Convert.ToInt32(job.MaxApplicants))
-                    .ToList()
-                    .Where(job => ConvertToDateTime(job.Deadline) >= currentDate)
-                    .ToList();
+                List<Job> jobs;
 
-                if (jobs.Count > 0)
-                {
-                    return new Result<List<Job>>(false, new List<string> { "Jobs retrieved successfully" }, jobs);
-                }
+                if (showAll) jobs = _db.Job.ToList();
                 else
                 {
-                    return new Result<List<Job>>(true, new List<string> { "No jobs found" }, null);
+                    jobs = _db.Job
+                        .Where(job => job.Status == "true" && Convert.ToInt32(job.Applicants) < Convert.ToInt32(job.MaxApplicants))
+                        .ToList()
+                        .Where(job => ConvertToDateTime(job.Deadline) >= currentDate)
+                        .ToList();
                 }
-            }
-            catch (Exception ex)
-            {
-                return new Result<List<Job>>(true, new List<string> { "Failed to retrieve jobs", ex.Message }, null);
-            }
-        }
 
+                if (jobs.Count > 0) return new Result<List<Job>>(false, new List<string> { "Jobs retrieved successfully" }, jobs);
+                else return new Result<List<Job>>(true, new List<string> { "No jobs found" }, null);
+
+            }
+
+            catch (Exception ex) 
+            { 
+                return new Result<List<Job>>(true, new List<string> { "Failed to retrieve jobs", ex.Message }, null);
+            } 
+
+        }
 
         public Result<Job> GetJob(int jobID)
         {

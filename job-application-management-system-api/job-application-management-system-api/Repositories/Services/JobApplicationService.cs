@@ -91,7 +91,8 @@ namespace job_application_management_system_api.Repositories.Services
                     MscCGPA = jobApplicationDTO.MscCGPA,
                     MscGraduate = jobApplicationDTO.MscGraduate,
                     MscGraduationDate = jobApplicationDTO.MscGraduationDate,
-                    Cv = jobApplicationDTO.Cv
+                    Cv = jobApplicationDTO.Cv,
+                    CoverLetter = jobApplicationDTO.CoverLetter
                 };
 
                 _db.JobApplication.Add(_jobApplication);

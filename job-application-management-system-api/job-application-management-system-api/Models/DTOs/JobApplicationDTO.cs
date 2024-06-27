@@ -31,6 +31,7 @@ namespace job_application_management_system_api.Models.DTOs
         public string? MscGraduate { get; set; }
         public string? MscGraduationDate { get; set; }
         public string? Cv { get; set; }
+        public string? CoverLetter { get; set; }
         public List<string>? Skills { get; set; } 
     }
 }

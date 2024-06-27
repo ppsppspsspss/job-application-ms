@@ -84,6 +84,7 @@ export class ApplicationFormComponent {
         mscGraduate: this.mscGraduate ? "true" : "false",
         mscGraduationDate: this.mscGraduate ? this.formatDate(this.mscGraduationDate) : null,
         cv: null,
+        coverLetter: null,
         skills: this.skills
       };
   

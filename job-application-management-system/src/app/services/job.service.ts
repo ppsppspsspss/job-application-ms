@@ -17,8 +17,8 @@ export class JobService {
     return this.http.post<Result<string>>(`${this.baseUrl}/create-opening`, openingForm);
   }
 
-  getAllJobs(): Observable<Result<Job[]>> {
-    return this.http.get<Result<Job[]>>(`${this.baseUrl}/get-all-jobs`);
+  getAllJobs(showAll: boolean = false): Observable<Result<Job[]>> {
+    return this.http.get<Result<Job[]>>(`${this.baseUrl}/get-all-jobs/${showAll}`);
   }
 
   getJob(jobID: number): Observable<Result<Job>> {

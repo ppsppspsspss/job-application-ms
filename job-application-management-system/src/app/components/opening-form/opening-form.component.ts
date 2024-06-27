@@ -20,6 +20,7 @@ export class OpeningFormComponent {
   type: string = 'Part Time';
   jobID: number | null = null;
   salary: number = 0.00;
+  unlimited: boolean = false;
   maxApplicants: number | null = null;
   jobTitle: string = '';
   designation: string = '';

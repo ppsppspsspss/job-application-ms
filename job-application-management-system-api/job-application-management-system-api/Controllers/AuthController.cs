@@ -18,7 +18,6 @@ namespace aiub_portal_api.Controllers
             _authService = authService;
         }
 
-        [AllowAnonymous]
         [HttpPost("sign-in")]
         public Result<string> SignIn([FromBody] SignInDTO signInDTO)
         {

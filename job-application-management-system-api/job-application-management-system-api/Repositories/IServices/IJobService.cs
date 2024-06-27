@@ -8,7 +8,7 @@ namespace job_application_management_system_api.Repositories.IServices
     public interface IJobService
     {
         Result<string> CreateOpening(CreateOpeningDTO createOpeningDTO);
-        Result<List<Job>> GetAllJobs();
+        Result<List<Job>> GetAllJobs(bool showAll);
         Result<Job> GetJob(int jobID);
         Result<List<JobRequirement>> GetJobRequirements(int jobID);
         Result<List<JobResponsibility>> GetJobResponsibilities(int jobID);
