@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { JobApplication } from '../types/job-application';
 import { Result } from '../types/result';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobApplicationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   baseUrl = "http://localhost:5171/api/job-application";
 
@@ -18,11 +19,21 @@ export class JobApplicationService {
   }
 
   getAllJobApplications(jobID: number): Observable<Result<JobApplication[]>> {
-    return this.http.get<Result<JobApplication[]>>(`${this.baseUrl}/get-all-job-applications/${jobID}`);
+    const token = this.authService.getToken(); 
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Result<JobApplication[]>>(`${this.baseUrl}/get-all-job-applications/${jobID}`, { headers });
   }
 
   getJobApplication(jobApplicationID: number): Observable<Result<JobApplication>>{
-    return this.http.get<Result<JobApplication>>(`${this.baseUrl}/get-job-application/${jobApplicationID}`);
+    const token = this.authService.getToken(); 
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<Result<JobApplication>>(`${this.baseUrl}/get-job-application/${jobApplicationID}`, { headers });
   }
 
 }

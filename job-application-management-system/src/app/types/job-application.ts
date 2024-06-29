@@ -25,6 +25,6 @@ export interface JobApplication{
     mscCGPA: string
     mscGraduate: string
     mscUniversity: string
-    cv?: File
-    coverLetter?: File
+    cv?: File | string
+    coverLetter?: File | string
 }

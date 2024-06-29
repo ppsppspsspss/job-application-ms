@@ -33,6 +33,10 @@ export class AuthService {
     this.loadCurrentUser();
   }
 
+  getToken(): string | null {
+    return localStorage.getItem("access-token");
+  }
+
   loadCurrentUser(){
     const token = localStorage.getItem("access-token");
     const userInfo = token != null ? this.jwtHelperService.decodeToken(token) : null;

@@ -27,6 +27,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+            ValidIssuer = "localhost",
+            ValidAudience = "localhost",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key!)),
             ClockSkew = TimeSpan.Zero
         };
@@ -52,11 +54,11 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowSpecificOrigins");
+
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseCors("AllowSpecificOrigins");
 
 app.MapControllers();
 

@@ -1,12 +1,20 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\300387a8-3747-4c5a-b148-440b13173ce7.pdf",
-      "PackagePath": "staticwebassets\\Files\\300387a8-3747-4c5a-b148-440b13173ce7.pdf"
+      "Id": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\cover letter\\cover-letter-10.pdf",
+      "PackagePath": "staticwebassets\\Files\\cover letter\\cover-letter-10.pdf"
     },
     {
-      "Id": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\87fab290-a4e2-40c2-a912-aaa686dc12b4.pdf",
-      "PackagePath": "staticwebassets\\Files\\87fab290-a4e2-40c2-a912-aaa686dc12b4.pdf"
+      "Id": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\cover letter\\cover-letter-11.pdf",
+      "PackagePath": "staticwebassets\\Files\\cover letter\\cover-letter-11.pdf"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-10.pdf",
+      "PackagePath": "staticwebassets\\Files\\curriculum vitae\\curriculum-vitae-10.pdf"
+    },
+    {
+      "Id": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-11.pdf",
+      "PackagePath": "staticwebassets\\Files\\curriculum vitae\\curriculum-vitae-11.pdf"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.job-application-management-system-api.props",

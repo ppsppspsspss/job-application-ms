@@ -2,6 +2,7 @@
 using job_application_management_system_api.Models.DTOs;
 using job_application_management_system_api.Repositories.IServices;
 using job_application_management_system_api.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using SocialMedia.API.Data;
 using System.Text.RegularExpressions;
@@ -91,11 +92,17 @@ namespace job_application_management_system_api.Repositories.Services
                     MscCGPA = jobApplicationDTO.MscCGPA,
                     MscGraduate = jobApplicationDTO.MscGraduate,
                     MscGraduationDate = jobApplicationDTO.MscGraduationDate,
-                    Cv = SaveFile(jobApplicationDTO.Cv),
-                    CoverLetter = SaveFile(jobApplicationDTO.CoverLetter)
                 };
 
                 _db.JobApplication.Add(_jobApplication);
+                _db.SaveChanges();
+
+                var applicationID = _jobApplication.JobApplicationID;
+
+                if (jobApplicationDTO.Cv != null) _jobApplication.Cv = SaveFile(jobApplicationDTO.Cv, applicationID, "cv");
+                if (jobApplicationDTO.CoverLetter != null) _jobApplication.CoverLetter = SaveFile(jobApplicationDTO.CoverLetter, applicationID, "cl");
+
+                _db.JobApplication.Update(_jobApplication);
                 _db.SaveChanges();
 
                 if (jobApplicationDTO.Skills != null && jobApplicationDTO.Skills.Any())
@@ -156,8 +163,8 @@ namespace job_application_management_system_api.Repositories.Services
                         MscCGPA = jobApplication.MscCGPA,
                         MscGraduate = jobApplication.MscGraduate,
                         MscGraduationDate = jobApplication.MscGraduationDate,
-                        Cv = RetrieveFile(jobApplication.Cv), 
-                        CoverLetter = RetrieveFile(jobApplication.CoverLetter),
+                        Cv = jobApplication.Cv, 
+                        CoverLetter = jobApplication.CoverLetter,
                         Skills = _db.UserSkill
                             .Where(skill => skill.JobApplicationID == jobApplication.JobApplicationID && skill.Skill != null)
                             .Select(skill => skill.Skill!)
@@ -274,16 +281,30 @@ namespace job_application_management_system_api.Repositories.Services
             }
         }
 
-        private string? SaveFile(IFormFile file)
+        private string? SaveFile(IFormFile file, int applicationId, string fileType)
         {
             if (file == null || file.Length == 0) return null;
 
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files");
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files");
 
-            if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+            string targetFolder;
+            string fileName;
 
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(uploadsFolder, fileName);
+            if (fileType.ToLower() == "cv")
+            {
+                targetFolder = Path.Combine(uploadsFolder, "curriculum vitae");
+                fileName = $"curriculum-vitae-{applicationId}.pdf";
+            }
+            else if (fileType.ToLower() == "cl")
+            {
+                targetFolder = Path.Combine(uploadsFolder, "cover letter");
+                fileName = $"cover-letter-{applicationId}.pdf";
+            }
+            else throw new ArgumentException("Invalid file type. Expected 'cv' or 'cl'.");
+            
+            if (!Directory.Exists(targetFolder)) Directory.CreateDirectory(targetFolder);
+
+            string filePath = Path.Combine(targetFolder, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
@@ -293,30 +314,28 @@ namespace job_application_management_system_api.Repositories.Services
             return fileName; 
         }
 
-        private static IFormFile? RetrieveFile(string fileName)
+        private static string? RetrieveFile(string fileName)
         {
             try
             {
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files");
-                var filePath = Path.Combine(uploadsFolder, fileName);
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Files");
+                string[] folders = { "curriculum vitae", "cover letter" };
 
-                if (File.Exists(filePath))
+                foreach (var folder in folders)
                 {
-                    var fileBytes = File.ReadAllBytes(filePath);
-                    var fileMemoryStream = new MemoryStream(fileBytes);
-                    var formFile = new FormFile(fileMemoryStream, 0, fileBytes.Length, "file", fileName);
-
-                    return formFile;
+                    var filePath = Path.Combine(uploadsFolder, folder, fileName);
+                    if (File.Exists(filePath))
+                    {
+                        var fileBytes = File.ReadAllBytes(filePath);
+                        return Convert.ToBase64String(fileBytes);
+                    }
                 }
-                else
-                {
-                    throw new FileNotFoundException("The file does not exist.", filePath);
-                }
+                throw new FileNotFoundException("The file does not exist.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving file: {ex.Message}");
-                return null; 
+                Console.WriteLine(ex.Message );
+                return null;
             }
         }
 

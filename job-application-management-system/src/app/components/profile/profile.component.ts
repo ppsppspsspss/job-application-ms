@@ -82,5 +82,22 @@ export class ProfileComponent {
 
   }
 
+  showPdf(base64String: string) {
+    const arrayBuffer = this.base64ToArrayBuffer(base64String);
+    const blob = new Blob([arrayBuffer], { type: 'application/pdf' });
+    const link = window.URL.createObjectURL(blob);
+    window.open(link);
+  }
+
+  private base64ToArrayBuffer(base64: string): ArrayBuffer {
+    const binaryString = window.atob(base64); 
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+
 
 }

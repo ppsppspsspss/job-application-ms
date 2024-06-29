@@ -232,3 +232,4 @@ C:\Users\Administrator\Desktop\job-application-ms\job-application-management-sys
 C:\Users\Administrator\Desktop\job-application-ms\job-application-management-system-api\job-application-management-system-api\obj\Debug\net7.0\job-application-management-system-api.genruntimeconfig.cache
 C:\Users\Administrator\Desktop\job-application-ms\job-application-management-system-api\job-application-management-system-api\obj\Debug\net7.0\ref\job-application-management-system-api.dll
 C:\Users\SDD-SA\Desktop\job-application-ms\job-application-management-system-api\job-application-management-system-api\bin\Debug\net7.0\job-application-management-system-api.staticwebassets.runtime.json
+C:\Users\Administrator\Desktop\job-application-ms\job-application-management-system-api\job-application-management-system-api\bin\Debug\net7.0\job-application-management-system-api.staticwebassets.runtime.json

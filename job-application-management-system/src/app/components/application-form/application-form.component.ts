@@ -76,7 +76,7 @@ export class ApplicationFormComponent {
       jobApplication.append('bscAdmissionDate', this.bsc ? this.formatDate(this.bscAdmissionDate) || '' : '');
       jobApplication.append('bscAIUB', this.bscAIUB ? "true" : "false");
       jobApplication.append('bscUniversity', this.universityBsc);
-      jobApplication.append('bscCGPA', this.bscAIUB ? '' : this.cgpaBsc.toString());
+      jobApplication.append('bscCGPA', this.cgpaBsc.toString());
       jobApplication.append('bscAIUBID', this.bscAIUB ? this.aiubIdBsc : '');
       jobApplication.append('bscGraduate', this.bscGraduate ? "true" : "false");
       jobApplication.append('bscGraduationDate', this.bscGraduate ? this.formatDate(this.bscGraduationDate) || '' : '');
@@ -84,13 +84,15 @@ export class ApplicationFormComponent {
       jobApplication.append('mscAdmissionDate', this.msc ? this.formatDate(this.mscAdmissionDate) || '' : '');
       jobApplication.append('mscAIUB', this.mscAIUB ? "true" : "false");
       jobApplication.append('mscUniversity', this.universityMsc);
-      jobApplication.append('mscCGPA', this.msc ? '' : this.cgpaMsc.toString());
+      jobApplication.append('mscCGPA', this.cgpaMsc.toString());
       jobApplication.append('mscAIUBID', this.mscAIUB ? this.aiubIdMsc : '');
       jobApplication.append('mscGraduate', this.mscGraduate ? "true" : "false");
       jobApplication.append('mscGraduationDate', this.mscGraduate ? this.formatDate(this.mscGraduationDate) || '' : '');
       if (this.cvFile) jobApplication.append('cv', this.cvFile, this.cvFile.name);
       if (this.coverLetterFile) jobApplication.append('coverLetter', this.coverLetterFile, this.coverLetterFile.name);
-      jobApplication.append('skills', JSON.stringify(this.skills));
+      this.skills.forEach((skill, index) => {
+        jobApplication.append(`skills[${index}]`, skill);
+      });
   
       this.jobApplicationService.jobApplication(jobApplication).subscribe(
         response => {
@@ -251,6 +253,14 @@ export class ApplicationFormComponent {
         isValid = false;
       }
     } 
+    if (!this.cvFile) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'CV is required' });
+      isValid = false;
+    }
+    if (!this.coverLetterFile) {
+      this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Cover letter is required' });
+      isValid = false;
+    }
   
     return isValid;
   }

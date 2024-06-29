@@ -28,8 +28,8 @@
         public string? MscCGPA { get; set; }
         public string? MscGraduate { get; set; }
         public string? MscGraduationDate { get; set; }
-        public IFormFile? Cv { get; set; }
-        public IFormFile? CoverLetter { get; set; }
+        public string? Cv { get; set; }
+        public string? CoverLetter { get; set; }
         public List<string>? Skills { get; set; }
     }
 }

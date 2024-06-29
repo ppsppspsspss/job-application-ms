@@ -18,14 +18,16 @@ public class JobController : ControllerBase
     {
         _jobService = jobService;
     }
-
+    
     [HttpPost("create-opening")]
+    [Authorize]
     public Result<string> CreateOpening([FromBody] CreateOpeningDTO createOpeningDTO)
     {
         return _jobService.CreateOpening(createOpeningDTO);
     }
 
     [HttpPut("update-job/{jobID}")]
+    [Authorize]
     public Result<string> UpdateJob(int jobID, [FromBody] UpdateOpeningDTO updateOpeningDTO)
     {
         return _jobService.UpdateJob(jobID, updateOpeningDTO);
@@ -38,6 +40,7 @@ public class JobController : ControllerBase
     }
 
     [HttpPatch("update-status/{jobID}")]
+    [Authorize]
     public Result<string> UpdateStatus(int jobID)
     {
         return _jobService.UpdateStatus(jobID);
@@ -62,6 +65,7 @@ public class JobController : ControllerBase
     }
 
     [HttpDelete("delete-job/{jobID}")]
+    [Authorize]
     public Result<string> DeleteJob(int jobID)
     {
         return _jobService.DeleteJob(jobID);

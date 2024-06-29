@@ -28,12 +28,14 @@ namespace job_application_management_system_api.Controllers
         }
 
         [HttpGet("get-all-job-applications/{jobID}")]
+        [Authorize]
         public Result<List<GetJobApplicationDTO>> GetAllJobApplications(int jobID)
         {
             return _jobApplicationService.GetAllJobApplications(jobID);
         }
 
         [HttpGet("get-job-application/{jobApplicationID}")]
+        [Authorize]
         public Result<GetJobApplicationDTO> GetJobApplication(int jobApplicationID)
         {
             return _jobApplicationService.GetJobApplication(jobApplicationID);
