@@ -73,7 +73,21 @@ export class UserListComponent {
 
   download() {
     import('xlsx').then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(this.applications);
+
+      const customizedData = this.applications.map(application => ({
+        'Application ID': application.jobApplicationID,
+        'Full Name': application.firstName + application.lastName,
+        'Email': application.email,
+        'Phone': application.phone,
+        'BSc Status': this.bscStatus(application),
+        'BSc University': application.bscUniversity,
+        'BSc CGPA': application.bscCGPA,
+        'MSc Status': this.mscStatus(application),
+        'MSc University': application.mscUniversity,
+        'MSc CGPA': application.mscCGPA,
+      }));
+
+      const worksheet = xlsx.utils.json_to_sheet(customizedData);
       const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
       const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
       this.saveAsExcelFile(excelBuffer, 'job_applications');

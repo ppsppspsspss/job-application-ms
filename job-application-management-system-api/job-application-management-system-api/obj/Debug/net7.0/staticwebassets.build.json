@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rGPXThVCjegFr96Az05Stv/+WHILpBik/dIjt0yIj3s=",
+  "Hash": "irLlXps17yABGG3kfKJ/aML9GJTz0RJ+1UthKJCiz1c=",
   "Source": "job-application-management-system-api",
   "BasePath": "_content/job-application-management-system-api",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "job-application-management-system-api\\wwwroot",
       "Source": "job-application-management-system-api",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
       "BasePath": "_content/job-application-management-system-api",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\cover letter\\cover-letter-10.pdf",
+      "Identity": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\cover letter\\cover-letter-10.pdf",
       "SourceId": "job-application-management-system-api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
       "BasePath": "_content/job-application-management-system-api",
       "RelativePath": "Files/cover letter/cover-letter-10.pdf",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\Files\\cover letter\\cover-letter-10.pdf"
     },
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\cover letter\\cover-letter-11.pdf",
+      "Identity": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\cover letter\\cover-letter-11.pdf",
       "SourceId": "job-application-management-system-api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
       "BasePath": "_content/job-application-management-system-api",
       "RelativePath": "Files/cover letter/cover-letter-11.pdf",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\Files\\cover letter\\cover-letter-11.pdf"
     },
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-10.pdf",
+      "Identity": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-10.pdf",
       "SourceId": "job-application-management-system-api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
       "BasePath": "_content/job-application-management-system-api",
       "RelativePath": "Files/curriculum vitae/curriculum-vitae-10.pdf",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\Files\\curriculum vitae\\curriculum-vitae-10.pdf"
     },
     {
-      "Identity": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-11.pdf",
+      "Identity": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-11.pdf",
       "SourceId": "job-application-management-system-api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
       "BasePath": "_content/job-application-management-system-api",
       "RelativePath": "Files/curriculum vitae/curriculum-vitae-11.pdf",
       "AssetKind": "All",
