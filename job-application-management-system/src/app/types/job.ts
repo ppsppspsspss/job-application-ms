@@ -16,4 +16,6 @@ export interface Job{
     postedOn: string
     deadline: string
     status: string
+    requirements: string[]
+    responsibilities: string[]
 }

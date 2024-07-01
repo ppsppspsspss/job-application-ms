@@ -45,7 +45,7 @@ namespace job_application_management_system_api.Repositories.Services
                     return new Result<string>(true, validationErrors, null);
                 }
 
-                var _Job = new Job
+                Job _Job = new ()
                 {
                     JobTitle = createOpeningDTO.JobTitle,
                     Designation = createOpeningDTO.Designation,
@@ -134,46 +134,50 @@ namespace job_application_management_system_api.Repositories.Services
 
         }
 
-        public Result<Job> GetJob(int jobID)
+        public Result<JobDTO> GetJob(int jobID)
         {
             var job = _db.Job.FirstOrDefault(job => job.JobID == jobID);
 
             if (job != null)
             {
-                return new Result<Job>(false, new List<string> { "Job found" }, job);
+                JobDTO jobDTO = new ()
+                {
+                    JobID = job.JobID,
+                    JobTitle = job.JobTitle,
+                    JobType = job.JobType,
+                    Applicants = job.Applicants,
+                    Deadline = job.Deadline,
+                    Description = job.Description,
+                    Designation = job.Designation,
+                    Email = job.Email,
+                    Location = job.Location,
+                    MaxApplicants = job.MaxApplicants,
+                    Negotiable = job.Negotiable,
+                    Phone = job.Phone,
+                    PostedOn = job.PostedOn,
+                    Requirements = GetJobRequirements(job.JobID),
+                    Responsibilities = GetJobResponsibilities(job.JobID),
+                    Salary = job.Salary,
+                    Status = job.Status,
+                    WorkHourEnd = job.WorkHourEnd,
+                    WorkHourStart = job.WorkHourStart
+                };
+                return new Result<JobDTO>(false, new List<string> { "Job found" }, jobDTO);
             }
             else
             {
-                return new Result<Job>(true, new List<string> { "No job found" }, null);
+                return new Result<JobDTO>(true, new List<string> { "No job found" }, null);
             }
         }
 
-        public Result<List<JobRequirement>> GetJobRequirements(int jobID)
+        private List<string?> GetJobRequirements(int jobID)
         {
-            var jobRequirements = _db.JobRequirement.Where(requirement => requirement.JobID == jobID).ToList();
-
-            if (jobRequirements.Count > 0)
-            {
-                return new Result<List<JobRequirement>>(false, new List<string> { "Job requirements found" }, jobRequirements);
-            }
-            else
-            {
-                return new Result<List<JobRequirement>>(true, new List<string> { "No job requirements found" }, null);
-            }
+            return _db.JobRequirement.Where(requirement => requirement.JobID == jobID).Select(requirement => requirement.Requirement).ToList();
         }
 
-        public Result<List<JobResponsibility>> GetJobResponsibilities(int jobID)
+        public List<string?> GetJobResponsibilities(int jobID)
         {
-            var jobResponsibilities = _db.JobResponsibility.Where(responsibility => responsibility.JobID == jobID).ToList();
-
-            if (jobResponsibilities.Count > 0)
-            {
-                return new Result<List<JobResponsibility>>(false, new List<string> { "Job responsibilities found" }, jobResponsibilities);
-            }
-            else
-            {
-                return new Result<List<JobResponsibility>>(true, new List<string> { "No job responsibilities found" }, null);
-            }
+            return _db.JobResponsibility.Where(responsibility => responsibility.JobID == jobID).Select(responsibility => responsibility.Responsibility).ToList();
         }
 
         public Result<string> UpdateStatus(int jobId)

@@ -11,9 +11,6 @@ export class CareerComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
-
   handleJoinNow(){
     this.router.navigateByUrl('home');
   }

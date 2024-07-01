@@ -9,9 +9,7 @@ namespace job_application_management_system_api.Repositories.IServices
     {
         Result<string> CreateOpening(CreateOpeningDTO createOpeningDTO);
         Result<List<Job>> GetAllJobs(bool showAll);
-        Result<Job> GetJob(int jobID);
-        Result<List<JobRequirement>> GetJobRequirements(int jobID);
-        Result<List<JobResponsibility>> GetJobResponsibilities(int jobID);
+        Result<JobDTO> GetJob(int jobID);
         Result<string> UpdateStatus(int jobID);
         Result<string> DeleteJob(int jobID);
         Result<string> UpdateJob(int jobID, UpdateOpeningDTO updateOpeningDTO);

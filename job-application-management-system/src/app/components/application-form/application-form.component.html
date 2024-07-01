@@ -193,11 +193,11 @@
         <div style="display: flex; flex-direction: column;">
           <span class="label">Upload Your CV</span>
           <div class="cv" style="margin-top: 15px; margin-bottom: 15px;">
-            <p-fileUpload mode="basic" (customUpload)="true" name="cv[]" (onSelect)="onCVUpload($event)" accept=".pdf" [auto]="false" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
+            <p-fileUpload mode="basic" (customUpload)="true" name="cv[]" (onSelect)="onUpload($event, 'cv')" accept=".pdf" [auto]="false" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
           </div>
           <span class="label">Upload Your Cover Letter</span>
           <div class="cv" style="margin-top: 15px; margin-bottom: 15px;">
-            <p-fileUpload mode="basic" (customUpload)="true" name="coverLetter[]" (onSelect)="onCoverLetterUpload($event)" accept=".pdf" [auto]="false" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
+            <p-fileUpload mode="basic" (customUpload)="true" name="coverLetter[]" (onSelect)="onUpload($event, 'cl')" accept=".pdf" [auto]="false" chooseLabel="Browse" [style]="{width: '100%'}"></p-fileUpload>
           </div>
         </div>
       </div>

@@ -14,9 +14,7 @@ import { Result } from 'src/app/types/result';
 export class JobListComponent {
 
   jobs: Job[] = [];
-  loadJobInfo: Partial<Job> = {};
-  jobRequirements: any[] = [];
-  jobResponsibilities: any[] = [];
+  loadJobInfo: any = {};
   checked: boolean = true;
   visible: boolean = false;
 
@@ -33,9 +31,8 @@ export class JobListComponent {
   loadJobs(): void {
     this.jobService.getAllJobs(true).subscribe(
       (result: Result<Job[]>) => {
-        if (!result.isError) {
-          this.jobs = result.data || []; 
-        } else {
+        if (!result.isError) this.jobs = result.data || []; 
+        else {
           console.log(result.messages);
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to load jobs' });
           this.jobs = []; 
@@ -56,36 +53,6 @@ export class JobListComponent {
   toggleStatus(event: Event, job: any) {
     event.stopPropagation();
     this.updateStatus(job.jobID);
-  }
-
-  loadJobRequirements(jobID: number): void {
-    this.jobService.getJobRequirements(jobID).subscribe(
-      (result: Result<any[]>) => {
-        if (!result.isError) {
-          this.jobRequirements = result.data || [];
-        } else {
-          console.log(result.messages);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  loadJobResponsibilities(jobID: number): void {
-    this.jobService.getJobResponsibilities(jobID).subscribe(
-      (result: Result<any[]>) => {
-        if (!result.isError) {
-          this.jobResponsibilities = result.data || []; 
-        } else {
-          console.log(result.messages);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 
   showDialog(event: Event, job: any): void {
@@ -111,11 +78,10 @@ export class JobListComponent {
             applicants: jobData.applicants,
             postedOn: jobData.postedOn,
             deadline: jobData.deadline,
-            status: jobData.status
+            status: jobData.status,
+            jobRequirements: jobData.requirements,
+            jobResponsibilities: jobData.responsibilities
           };
-  
-          this.loadJobRequirements(job.jobID);
-          this.loadJobResponsibilities(job.jobID);
           this.visible = true;
 
         } 
@@ -138,9 +104,7 @@ export class JobListComponent {
   updateStatus(jobID: number): void {
     this.jobService.updateStatus(jobID).subscribe(
       (response) => {
-        if (response.isError) {
-          console.error(response.messages.join(', '));
-        }
+        if (response.isError) console.error(response.messages.join(', '));
       },
       (error) => {
         console.log(error);
@@ -162,9 +126,8 @@ export class JobListComponent {
           const errorMessage = response.messages.join(', ');
           console.error(errorMessage);
           this.messageService.add({ severity: 'error', summary: 'Error', detail: errorMessage });
-        } else {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job deleted successfully' });
-        }
+        } 
+        else this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Job deleted successfully' });
         this.loadJobs();
       },
       (error) => {

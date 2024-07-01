@@ -38,9 +38,7 @@ export class OpeningFormComponent {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.jobID = +params['jobID'] || null;
-      if (this.jobID) {
-        this.loadJobDetails(this.jobID);
-      }
+      if (this.jobID) this.loadJobDetails(this.jobID);
     });
   }
 
@@ -64,9 +62,8 @@ export class OpeningFormComponent {
           this.deadline = this.parseDate(job.deadline);
           this.status = job.status === 'true';
           this.applicants = Number.parseInt(job.applicants);
-  
-          this.loadJobRequirements(job.jobID);
-          this.loadJobResponsibilities(job.jobID);
+          this.responsibilities = job.requirements;
+          this.responsibilities = job.responsibilities;
           
         } else {
           console.log(result.messages);
@@ -161,33 +158,6 @@ export class OpeningFormComponent {
       }
     );
   }
-  
-
-  loadJobRequirements(jobID: number): void {
-    this.jobService.getJobRequirements(jobID).subscribe(
-      (response: any) => {
-        if (Array.isArray(response.data)) {
-          this.requirements = response.data.map((item: any) => item.requirement);
-        } 
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  loadJobResponsibilities(jobID: number): void {
-    this.jobService.getJobResponsibilities(jobID).subscribe(
-      (response: any) => {
-        if (Array.isArray(response.data)) {
-          this.responsibilities = response.data.map((item: any) => item.responsibility);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
 
   updateOpening(jobID: number, opening: any): void {
     this.jobService.updateJob(jobID, opening).subscribe(
@@ -200,9 +170,7 @@ export class OpeningFormComponent {
         } 
         else {
           console.log(response.messages); 
-          response.messages.forEach((message: string) => {
-            this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: message });
-          });
+          this.messageService.add({ severity: 'error', summary: 'Validation Error', detail: 'Failed to update opening' });
         }
       },
       (error) => {
@@ -213,45 +181,43 @@ export class OpeningFormComponent {
   }
 
   validateForm(): boolean {
-
-    let flag = true
     
     if (!this.jobTitle || this.jobTitle.trim() === '') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Opening title cannot be empty' });
-      flag = false;
+      return false;
     }
 
     if (!this.designation || this.designation.trim() === '') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Designation cannot be empty' });
-      flag = false;
+      return false;
     }
 
     if (this.workHourStart >= this.workHourEnd) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Work hour start cannot be greater than work hour end' });
-      flag = false;
+      return false;
     }
 
     if (!this.description || this.description.trim() === '') {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Description cannot be empty' });
-      flag = false;
+      return false;
     }
 
     if (this.maxApplicants === null || this.maxApplicants <= 0) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Max applicants must be greater than 0' });
-      flag = false;
+      return false;
     }
 
     if (this.maxApplicants !== null && this.applicants !== null && this.maxApplicants < this.applicants) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: `Max applicants cannot be less than the current number of applicants (${this.applicants})` });
-      flag = false;
+      return false;
     }
 
     if (!this.deadline || new Date(this.deadline) < new Date()) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Opening deadline cannot be empty or a past date' });
-      flag = false;
+      return false;
     }
 
-    return flag;
+    return true;
 
   }
 

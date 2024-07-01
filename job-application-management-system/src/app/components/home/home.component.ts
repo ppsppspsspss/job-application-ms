@@ -13,13 +13,11 @@ import { Result } from 'src/app/types/result';
   styleUrls: ['./home.component.css'],
   providers: [MessageService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   token = localStorage.getItem("access-token");
   role = this.token != null ? 'Admin' : 'User';
   jobs: Job[] = [];
-  jobRequirements: any[] = [];
-  jobResponsibilities: any[] = [];
   visible: boolean = false;
   loadJob: any = {};
 
@@ -29,7 +27,7 @@ export class HomeComponent implements OnInit {
     this.loadJobs();
   }
 
-  getRemainingVacancies(job: any): number {
+  getRemainingVacancies(job: Job): number {
     return Number.parseInt(job.maxApplicants) - Number.parseInt(job.applicants);
   }
 
@@ -41,36 +39,6 @@ export class HomeComponent implements OnInit {
         } 
         else {
           this.jobs = []
-          console.log(result.messages);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  loadJobRequirements(jobID: number): void {
-    this.jobService.getJobRequirements(jobID).subscribe(
-      (result: Result<any[]>) => {
-        if (!result.isError) {
-          this.jobRequirements = result.data || [];
-        } else {
-          console.log(result.messages);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  loadJobResponsibilities(jobID: number): void {
-    this.jobService.getJobResponsibilities(jobID).subscribe(
-      (result: Result<any[]>) => {
-        if (!result.isError) {
-          this.jobResponsibilities = result.data || []; 
-        } else {
           console.log(result.messages);
         }
       },
@@ -102,11 +70,11 @@ export class HomeComponent implements OnInit {
             applicants: jobData.applicants,
             postedOn: jobData.postedOn,
             deadline: jobData.deadline,
-            status: jobData.status
+            status: jobData.status,
+            jobRequirements: jobData.requirements,
+            jobResponsibilities: jobData.responsibilities
           };
-  
-          this.loadJobRequirements(jobID);
-          this.loadJobResponsibilities(jobID);
+          console.log(this.loadJob)
           this.visible = true;
         } else {
           console.log(result.messages);

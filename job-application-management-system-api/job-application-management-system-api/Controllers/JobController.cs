@@ -47,21 +47,9 @@ public class JobController : ControllerBase
     }
 
     [HttpGet("get-job/{jobID}")]
-    public Result<Job> GetJob(int jobID)
+    public Result<JobDTO> GetJob(int jobID)
     {
         return _jobService.GetJob(jobID);
-    }
-
-    [HttpGet("get-job-requirements/{jobID}")]
-    public Result<List<JobRequirement>> GetJobRequirements(int jobID)
-    {
-        return _jobService.GetJobRequirements(jobID);
-    }
-
-    [HttpGet("get-job-responsibilities/{jobID}")]
-    public Result<List<JobResponsibility>> GetJobResponsibilities(int jobID)
-    {
-        return _jobService.GetJobResponsibilities(jobID);
     }
 
     [HttpDelete("delete-job/{jobID}")]

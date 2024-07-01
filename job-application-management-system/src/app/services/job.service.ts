@@ -40,14 +40,6 @@ export class JobService {
     return this.http.patch<Result<string>>(`${this.baseUrl}/update-status/${jobID}`, {}, { headers });
   }
 
-  getJobRequirements(jobID: number): Observable<Result<any[]>> {
-    return this.http.get<Result<any[]>>(`${this.baseUrl}/get-job-requirements/${jobID}`);
-  }
-
-  getJobResponsibilities(jobID: number): Observable<Result<any[]>> {
-    return this.http.get<Result<any[]>>(`${this.baseUrl}/get-job-responsibilities/${jobID}`);
-  }
-
   deleteJob(jobID: number): Observable<Result<string>> {
     const token = this.authService.getToken(); 
     const headers = new HttpHeaders({

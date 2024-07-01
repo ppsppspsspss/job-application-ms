@@ -56,13 +56,13 @@
       <b>Requirements: </b>
       <br>
       <ul>
-        <li *ngFor="let requirement of jobRequirements">{{requirement.requirement}}</li>
+        <li *ngFor="let requirement of loadJobInfo.jobRequirements">{{requirement}}</li>
       </ul>
     <p>
       <b>Responsibilities: </b>
       <br>
       <ul>
-        <li *ngFor="let responsibility of jobResponsibilities">{{responsibility.responsibility}}</li>
+        <li *ngFor="let responsibility of loadJobInfo.jobResponsibilities">{{responsibility}}</li>
       </ul>
     <br>
     <p>

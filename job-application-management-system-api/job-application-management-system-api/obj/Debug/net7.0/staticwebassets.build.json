@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "irLlXps17yABGG3kfKJ/aML9GJTz0RJ+1UthKJCiz1c=",
+  "Hash": "jYZ+MLjgV8sNTS0tX4eqEnPdQYKnZMvNkrZLAScOOTc=",
   "Source": "job-application-management-system-api",
   "BasePath": "_content/job-application-management-system-api",
   "Mode": "Default",
@@ -55,6 +55,25 @@
       "OriginalItemSpec": "wwwroot\\Files\\cover letter\\cover-letter-11.pdf"
     },
     {
+      "Identity": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\cover letter\\cover-letter-54.pdf",
+      "SourceId": "job-application-management-system-api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
+      "BasePath": "_content/job-application-management-system-api",
+      "RelativePath": "Files/cover letter/cover-letter-54.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\cover letter\\cover-letter-54.pdf"
+    },
+    {
       "Identity": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-10.pdf",
       "SourceId": "job-application-management-system-api",
       "SourceType": "Discovered",
@@ -91,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Files\\curriculum vitae\\curriculum-vitae-11.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\Files\\curriculum vitae\\curriculum-vitae-54.pdf",
+      "SourceId": "job-application-management-system-api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\SDD-SA\\Desktop\\job-application-ms\\job-application-management-system-api\\job-application-management-system-api\\wwwroot\\",
+      "BasePath": "_content/job-application-management-system-api",
+      "RelativePath": "Files/curriculum vitae/curriculum-vitae-54.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Files\\curriculum vitae\\curriculum-vitae-54.pdf"
     }
   ]
 }
